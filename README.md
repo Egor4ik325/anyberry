@@ -2,6 +2,8 @@
 
 E-commerce website for buying fresh &amp; tasty berries 🍓. Healthy organic food for any one!
 
+> Real app with real features!
+
 ## Description
 
 ### What I want this project to be like?
@@ -13,6 +15,7 @@ E-commerce website for buying fresh &amp; tasty berries 🍓. Healthy organic fo
 - It should be able to add liked berries to the cart.
 - User can purchase berries in the cart if logined, or register a new account.
 - Website should provide real ability to buy berries, money should transfer.
+
 
 ### List of features
 
@@ -39,8 +42,11 @@ Possible project features:
   * HTTPs
 - Oriented on Russian market (ru)
 - Analytics, advertisment
-- Social media sharing
+- Social media sharing/commenting
+  * Disqus
 - Updates, newsletter, RSS
+- Docker/Nginx/Gunicorn
+
 
 ### Project goals
 
