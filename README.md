@@ -2,6 +2,8 @@
 
 E-commerce website for buying fresh &amp; tasty berries 🍓. Healthy organic food for any one!
 
+> Real app with real features!
+
 ## Description
 
 ### What I want this project to be like?
@@ -40,8 +42,11 @@ Possible project features:
   * HTTPs
 - Oriented on Russian market (ru)
 - Analytics, advertisment
-- Social media sharing
+- Social media sharing/commenting
+  * Disqus
 - Updates, newsletter, RSS
+- Docker/Nginx/Gunicorn
+
 
 
 ### Project goals
