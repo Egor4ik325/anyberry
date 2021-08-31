@@ -14,6 +14,7 @@ E-commerce website for buying fresh &amp; tasty berries 🍓. Healthy organic fo
 - User can purchase berries in the cart if logined, or register a new account.
 - Website should provide real ability to buy berries, money should transfer.
 
+
 ### List of features
 
 Possible project features:
@@ -42,6 +43,7 @@ Possible project features:
 - Social media sharing
 - Updates, newsletter, RSS
 
+
 ### Project goals
 
 - learn how to make a little bit "real" website
@@ -55,5 +57,6 @@ Possible project features:
 
 What differ this project from all other? What makes it special?
 
-- it will be the most closest to the real (basically money-related)
-- it will be production ready and further running in production
+- it will be the most closest to the **real** (basically money-related)
+- it will be production ready and further **running in production**
+- it will a have a **technology stack** closest to production running
