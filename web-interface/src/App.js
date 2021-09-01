@@ -1,36 +1,22 @@
 import React from "react";
-import axios from "axios";
+import { Header, Footer, Home, About, Contact, Berry } from "./components";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-const API_URL = "http://127.0.0.1:8000/api/"
 
 function App() {
-  let [berries, setBerries] = React.useState([])
-
-  React.useEffect(() => {
-    axios.get(API_URL + 'berries/')
-      .then(data => {
-        setBerries(data);
-      })
-
-  }, [setBerries, berries]);
-
-  function renderBerries() {
-    return JSON.stringify(berries);
-  }
-
   return (
-    <div>
-      <h1>Fetching berries data from API!</h1>
-      {
-        berries.length === 0 ? (
-          <p>No berries</p>
-        ) : (
-          <p>Berries exists:
-            {renderBerries()}
-          </p>
-        )
-      }
-    </div>
+    <React.Fragment>
+      <Router>
+        <Header />
+        <Switch>
+          <Route path="/" exact component={() => <Home />} />
+          <Route path="/about" exact component={() => <About />} />
+          <Route path="/contact" exact component={() => <Contact />} />
+          <Route path="/berries/:id" exact children={<Berry />} />
+        </Switch>
+      </Router>
+      <Footer />
+    </React.Fragment>
   );
 }
 
