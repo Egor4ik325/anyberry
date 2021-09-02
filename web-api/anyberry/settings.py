@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
     'corsheaders',
     'rest_framework',
+    'djmoney',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +144,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
 ]
+
+DEFAULT_CURRENCY = 'USD'
+
+# Filesystem path to the media storage directory
+MEDIA_ROOT = BASE_DIR / 'media/'
+
+# URL prefix for file storage access
+MEDIA_URL = 'media/'

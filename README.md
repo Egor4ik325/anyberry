@@ -48,6 +48,17 @@ Possible project features:
 - Docker/Nginx/Gunicorn
 
 
+### Roadmap
+
+- [ ] enhance model + interface/markup
+- [ ] auth/mail
+- [ ] shopping card
+- [ ] payments
+- [ ] localize
+- [ ] docker/production
+- [ ] enhance model + interface/markup
+- [ ] social media/comments
+
 
 ### Project goals
 

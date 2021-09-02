@@ -8,6 +8,8 @@ django = "*"
 django-environ = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
+django-money = "*"
+pillow = "*"
 
 [dev-packages]
 pylint = "*"
