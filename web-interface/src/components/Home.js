@@ -1,9 +1,8 @@
 import React from "react";
 import axios from "axios";
-import { Container, ListGroup, ListGroupItem } from "reactstrap";
+import { API_URL } from "../Constants";
+import { Container, Card, CardBody, CardSubtitle, CardText, CardTitle, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
-
-const API_URL = "http://127.0.0.1:8000/api/"
 
 const Home = () => {
     let [berries, setBerries] = React.useState([]);
@@ -18,7 +17,26 @@ const Home = () => {
     }, [setBerries]);
 
     function renderBerries() {
-        return berries.map(berry => <ListGroupItem><Link to={`/berries/${berry.id}`}>{berry.title}</Link></ListGroupItem>);
+        return berries.map(berry =>
+            <Card className="mb-3" >
+                <Row noGutters>
+                    {/* Card with image/body relation = 4/8 */}
+                    <Col md="4" className="d-flex justify-content-center align-items-center">
+                        <img className="img-fluid rounded-start bg-light" src={berry.image} alt="Berry product image." style={{ 'max-height': 200 }} />
+                    </Col>
+                    <Col md="8">
+                        <CardBody>
+                            <CardTitle className="mb-2">
+                                <Link to={`/berries/${berry.id}`} className="text-decoration-none">
+                                    <h5>{berry.title}</h5>
+                                </Link>
+                            </CardTitle>
+                            <CardText>Small description</CardText>
+                        </CardBody>
+                    </Col>
+                </Row>
+            </Card>
+        );
     }
 
     return (
@@ -29,9 +47,7 @@ const Home = () => {
                 berries.length === 0 ? (
                     <p>Fetching berries...</p>
                 ) : (
-                    <ListGroup>
-                        {renderBerries()}
-                    </ListGroup>
+                    renderBerries()
                 )
             }
         </Container>

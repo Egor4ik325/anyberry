@@ -8,4 +8,4 @@ class BerrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Berry
-        fields = ('id', 'title', 'description',)
+        fields = ('id', 'title', 'description', 'image', 'quantity', 'price', 'price_currency', 'weight',)

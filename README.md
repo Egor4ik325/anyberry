@@ -50,7 +50,7 @@ Possible project features:
 
 ### Roadmap
 
-- [ ] enhance model + interface/markup
+- [x] enhance model + interface/markup
 - [ ] auth/mail
 - [ ] shopping card
 - [ ] payments
