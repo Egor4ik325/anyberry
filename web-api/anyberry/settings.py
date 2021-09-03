@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'berries',
+    'users',
 
     'corsheaders',
     'rest_framework',
@@ -152,3 +153,5 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 
 # URL prefix for file storage access
 MEDIA_URL = 'media/'
+
+AUTH_USER_MODEL = 'users.CustomUser'
