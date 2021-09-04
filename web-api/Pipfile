@@ -11,6 +11,7 @@ django-cors-headers = "*"
 django-money = "*"
 pillow = "*"
 dj-rest-auth = "*"
+django-allauth = "*"
 
 [dev-packages]
 pylint = "*"

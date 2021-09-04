@@ -57,6 +57,10 @@ INSTALLED_APPS = [
     # Auth
     'rest_framework.authtoken', # token auth
     'dj_rest_auth', # DRF auth API
+    'django.contrib.sites', # content for different domains
+    'allauth',
+    'allauth.account', # account management
+    'dj_rest_auth.registration', # DRF registration & verification
 ]
 
 MIDDLEWARE = [
@@ -160,6 +164,6 @@ MEDIA_URL = 'media/'
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
-EMAIL_BACKEND = 'django.core.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 SITE_ID = 1
