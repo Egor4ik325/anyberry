@@ -53,6 +53,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'djmoney',
+
+    # Auth
+    'rest_framework.authtoken', # token auth
+    'dj_rest_auth', # DRF auth API
 ]
 
 MIDDLEWARE = [
@@ -155,3 +159,7 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 MEDIA_URL = 'media/'
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+EMAIL_BACKEND = 'django.core.backends.console.EmailBackend'
+
+SITE_ID = 1
