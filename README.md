@@ -51,10 +51,10 @@ Possible project features:
 ### Roadmap
 
 - [x] enhance model + interface/markup
-- [ ] auth/mail
+- [ ] auth/email/social + SPA
 - [ ] shopping card
 - [ ] payments
-- [ ] localize
+- [ ] localization
 - [ ] docker/production
 - [ ] enhance model + interface/markup
 - [ ] social media/comments
