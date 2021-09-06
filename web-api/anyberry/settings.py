@@ -51,16 +51,18 @@ INSTALLED_APPS = [
     'users',
 
     'corsheaders',
-    'rest_framework',
     'djmoney',
 
-    # Auth
+    'rest_framework',
     'rest_framework.authtoken', # token auth
-    'dj_rest_auth', # DRF auth API
     'django.contrib.sites', # content for different domains
+    'dj_rest_auth', # DRF auth API
+    'dj_rest_auth.registration', # DRF registration & verification
     'allauth',
     'allauth.account', # account management
-    'dj_rest_auth.registration', # DRF registration & verification
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.vk',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -169,6 +171,32 @@ ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'vk': {
+        'APP': {
+            'client_id': env('VK_APP_ID'),
+            'secret': env('VK_APP_SECURE_KEY'),
+            'key': '',
+        }
+    },
+    'google': {
+        'APP': {
+            'client_id': env('GOOGLE_CLIENT_ID'),
+            'secret': env('GOOGLE_CLIENT_SECRET'),
+            'key': '',
+        }
+    },
+}
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
