@@ -51,7 +51,7 @@ Possible project features:
 ### Roadmap
 
 - [x] enhance model + interface/markup
-- [ ] auth/email/social + SPA
+- [.] auth/email/social + SPA
 - [ ] shopping card
 - [ ] payments
 - [ ] localization

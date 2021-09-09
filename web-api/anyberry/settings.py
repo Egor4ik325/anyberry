@@ -50,16 +50,17 @@ INSTALLED_APPS = [
     'berries',
     'users',
 
+    # TODO: change cross-origin front-end to same-origin in production
     'corsheaders',
     'djmoney',
 
     'rest_framework',
-    'rest_framework.authtoken', # token auth
-    'django.contrib.sites', # content for different domains
-    'dj_rest_auth', # DRF auth API
-    'dj_rest_auth.registration', # DRF registration & verification
+    'rest_framework.authtoken',  # token auth
+    'django.contrib.sites',  # content for different domains
+    'dj_rest_auth',  # DRF auth API
+    'dj_rest_auth.registration',  # DRF registration & verification
     'allauth',
-    'allauth.account', # account management
+    'allauth.account',  # account management
     'allauth.socialaccount',
     'allauth.socialaccount.providers.vk',
     'allauth.socialaccount.providers.google',
@@ -152,10 +153,6 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-]
-
 DEFAULT_CURRENCY = 'USD'
 
 # Filesystem path to the media storage directory
@@ -169,7 +166,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 AUTHENTICATION_BACKENDS = [
@@ -202,8 +199,24 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = env('SENDGRID_API_KEY') 
+EMAIL_HOST_PASSWORD = env('SENDGRID_API_KEY')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 SITE_ID = 1
+
+# TODO: change auth headers in production
+
+# cors
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
+# TODO: Samesite=None requires Secure cookies attribute
+
+# sessionid
+SESSION_COOKIE_HTTPONLY = False  # allow javascript/client access cookies
+SESSION_COOKIE_SAMESITE = 'None'  # send cookies to x
+
+# csrftoken
+CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SAMESITE = 'None'

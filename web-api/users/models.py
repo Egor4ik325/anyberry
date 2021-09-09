@@ -26,5 +26,5 @@ class CustomUser(AbstractUser):
     )
 
     def __str__(self):
-        """Present users by email adress."""
-        return self.email
+        """Present users by username."""
+        return self.username

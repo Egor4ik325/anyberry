@@ -4,16 +4,19 @@ import { useParams } from "react-router";
 import { Container, Row, Col } from "reactstrap";
 
 import { API_URL } from "../Constants";
-import { nonEmptyArray } from "check-types";
 
 export default function Berry() {
     const { id } = useParams();
     const [berry, setBerry] = React.useState(null);
 
-    React.useEffect(async () => {
-        const res = await axios.get(API_URL + `berries/${id}/`);
-        setBerry(res.data);
-    }, [setBerry]);
+    React.useEffect(() => {
+        // Async data fetching inside sync effect
+        async function fetchData() {
+            const res = await axios.get(API_URL + `berries/${id}/`);
+            setBerry(res.data);
+        }
+        fetchData();
+    }, [id, setBerry]);
 
     if (!berry) {
         return null;
@@ -23,7 +26,7 @@ export default function Berry() {
         <Container>
             <Row>
                 <Col md="2">
-                    <img className="image-fluid" src={berry.image} alt="Berry product image" width="200" />
+                    <img className="image-fluid" src={berry.image} alt="Berry product" width="200" />
                 </Col>
                 <Col md="10">
                     <h3>{berry.title}</h3>
