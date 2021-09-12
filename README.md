@@ -52,13 +52,25 @@ Possible project features:
 
 - [x] enhance model + interface/markup
 - [.] auth/email/social + SPA
-- [ ] shopping card
+- [.] shopping cart
 - [ ] payments
 - [ ] localization
 - [ ] docker/production
 - [ ] enhance model + interface/markup
 - [ ] social media/comments
 
+#### Shopping cart
+
+Users can add berries to the shopping cart and then buy them all at once. Every user has only
+one shopping cart which contains berries from the list of available berries on the home page.
+Users can list berries in the cart, add, remove or clear the whole cart from berries. Shopping
+cart is only available for authenticated and verified users. If the berry was deleted or run out
+the user should notice that is the cart. 
+
+- GET `/cart/` should list cart berries for session user.
+- POST `/cart/<berry_id>/` should add berry to the cart.
+- DELETE `/cart/` should clear all cart berries.
+- DELETE `/cart/<berry_id>/` should destroy berry in the cart.
 
 ### Project goals
 
