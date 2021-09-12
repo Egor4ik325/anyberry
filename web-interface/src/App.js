@@ -1,30 +1,23 @@
 import React, { Fragment, useState, useEffect } from "react";
-import axios from "axios";
-import { Header, Footer, Home, About, Contact, Berry, Login, Signup } from "./components";
+import {
+  Header, Footer, Home, About, Contact, Berry,
+  Login, Signup,
+  Cart,
+} from "./components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { USER_URL } from "./Constants";
-
-// Determine whether user session exists
-async function checkSession() {
-  // Try to fetch user name (requires session/be logged-in)
-  const res = await axios.get(USER_URL, {
-    withCredentials: true
-  })
-    .catch(err => {
-      // Network error
-      console.error("Request error: ", err);
-      return false;
-    });
-
-  return res.ok;
-}
+import { checkSession } from "./api/Auth";
 
 function App() {
   const [isAuthenticated, setAuthenticated] = useState(false);
 
+  const checkAuthenticated = async _ => {
+    const authenticated = await checkSession();
+    setAuthenticated(authenticated);
+  }
+
   useEffect(() => {
     // Check client-server session
-    (async () => { setAuthenticated(await checkSession()); })();
+    checkAuthenticated();
   }, [isAuthenticated]);
 
   return (
@@ -35,7 +28,8 @@ function App() {
           <Route path="/" exact component={() => <Home />} />
           <Route path="/about" exact component={() => <About />} />
           <Route path="/contact" exact component={() => <Contact />} />
-          <Route path="/berries/:id" exact children={<Berry />} />
+          <Route path="/berries/:id" exact children={<Berry isAuthenticated={isAuthenticated} />} />
+          <Route path="/cart" exact children={<Cart isAuthenticated={isAuthenticated} />} />
           {
             !isAuthenticated ?
               <Fragment>

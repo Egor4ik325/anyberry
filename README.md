@@ -52,7 +52,7 @@ Possible project features:
 
 - [x] enhance model + interface/markup
 - [.] auth/email/social + SPA
-- [.] shopping cart
+- [x] shopping cart
 - [ ] payments
 - [ ] localization
 - [ ] docker/production
@@ -71,6 +71,16 @@ the user should notice that is the cart.
 - POST `/cart/<berry_id>/` should add berry to the cart.
 - DELETE `/cart/` should clear all cart berries.
 - DELETE `/cart/<berry_id>/` should destroy berry in the cart.
+
+Authenticated users should be presented with the cart icon on the header. In which all cart-added
+berries will be rendered. The users can add any berry to the cart by clicking the button. Users also 
+can remove berries from the cart or clear the whole cart. Users should see whether the berry is added
+to the cart or not (via berries API).
+
+- add berry button on the berry page
+- remove berry button on the berry page
+- shopping cart page
+- clear shopping cart on the cart page
 
 ### Project goals
 

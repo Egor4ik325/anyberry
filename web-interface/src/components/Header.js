@@ -25,12 +25,15 @@ function Header(props) {
                     <NavItem>
                         <Link className="nav-link text-light" to="/account">Account</Link>
                     </NavItem>
+                    <NavItem>
+                        <Link className="nav-link text-light" to="/cart">Cart</Link>
+                    </NavItem>
                 </Nav>
                 {
-                    props.isAuthenticated ?
+                    !props.isAuthenticated ?
                         <div>
                             <Link className="btn btn-outline-light me-2" to="/login">Log-in</Link>
-                            <Link className="btn btn-primary" to="/signup">Sign-up</Link>
+                            <Link className="btn btn-danger" to="/signup">Sign-up</Link>
                         </div>
                         :
                         <div className="d-flex align-items-center">
