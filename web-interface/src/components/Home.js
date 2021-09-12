@@ -19,7 +19,7 @@ const Home = () => {
     function renderBerries() {
         return berries.map(berry =>
             <Card className="mb-3" key={berry.id}>
-                <Row noGutters>
+                <Row noGutters className="py-2">
                     {/* Card with image/body relation = 4/8 */}
                     <Col md="4" className="d-flex justify-content-center align-items-center">
                         <img className="img-fluid rounded-start bg-light" src={berry.image} alt="Berry product" style={{ 'maxHeight': 200 }} />
@@ -31,6 +31,7 @@ const Home = () => {
                                     <h5>{berry.title}</h5>
                                 </Link>
                             </CardTitle>
+                            <CardSubtitle className="pb-2">tasty</CardSubtitle>
                             <CardText>Small description</CardText>
                         </CardBody>
                     </Col>

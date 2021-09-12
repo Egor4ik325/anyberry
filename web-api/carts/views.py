@@ -47,10 +47,10 @@ class ShoppingCartBerriesViewSet(viewsets.ViewSet):
         berry = get_object_or_404(Berry, pk=lookup_url_kwarg)
         cart = self.get_cart_object()
         cart.berries.remove(berry)
-        return Response(data={'detail': _("Successfully removed berry from the cart.")}, status=status.HTTP_201_CREATED)
+        return Response(data={'detail': _("Successfully removed berry from the cart.")}, status=status.HTTP_200_OK)
 
     def clear(self, *args, **kwargs):
         """Clear cart from the berries (remove all berries)."""
         cart = self.get_cart_object()
         cart.berries.clear()
-        return Response(data={'detail': _("Successfully cleared the cart.")}, status=status.HTTP_201_CREATED)
+        return Response(data={'detail': _("Successfully cleared the cart.")}, status=status.HTTP_200_OK)
