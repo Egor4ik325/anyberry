@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from .models import ShoppingCart
 from .serializers import ShoppingCartSerializer
 from berries.models import Berry
+from orders.models import Order
 
 
 class ShoppingCartBerriesViewSet(viewsets.ViewSet):
@@ -54,3 +55,12 @@ class ShoppingCartBerriesViewSet(viewsets.ViewSet):
         cart = self.get_cart_object()
         cart.berries.clear()
         return Response(data={'detail': _("Successfully cleared the cart.")}, status=status.HTTP_200_OK)
+
+    def order(self, *args, **kwargs):
+        """Create an order from all berries in the cart.
+        And than clear the cart."""
+        cart = self.get_cart_object()
+        order = Order.objects.create(user=self.request.user)
+        order.berries.set(cart.berries.all())
+        cart.berries.clear()
+        return Response(data={'detail': _("Successfully made an order.")}, status=status.HTTP_200_OK)

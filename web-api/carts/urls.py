@@ -16,6 +16,7 @@ class CartBerriesRouter(SimpleRouter):
             mapping={
                 'get': 'list',
                 'delete': 'clear',
+                'post': 'order',
             },
             name='{basename}-list',
             detail=False,
