@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'berries',
     'users',
     'carts',
+    'orders',
 
     # TODO: change cross-origin front-end to same-origin in production
     'corsheaders',

@@ -51,8 +51,9 @@ Possible project features:
 ### Roadmap
 
 - [x] enhance model + interface/markup
-- [.] auth/email/social + SPA
+- [ ] auth/email/social + SPA
 - [x] shopping cart
+- [x] orders
 - [ ] payments
 - [ ] localization
 - [ ] docker/production
@@ -81,6 +82,14 @@ to the cart or not (via berries API).
 - remove berry button on the berry page
 - shopping cart page
 - clear shopping cart on the cart page
+
+#### Orders
+
+When users press "Order" on the shopping cart page they creating a new order
+from all berries in the cart.
+
+- POST `/cart/` will make an order
+- GET `/orders/` will return user's orders
 
 ### Project goals
 
