@@ -16,7 +16,6 @@ E-commerce website for buying fresh &amp; tasty berries 🍓. Healthy organic fo
 - User can purchase berries in the cart if logined, or register a new account.
 - Website should provide real ability to buy berries, money should transfer.
 
-
 ### List of features
 
 Possible project features:
@@ -26,27 +25,26 @@ Possible project features:
 - Berry kinds, sorts, categories
 - CRUD operations
 - Account/Auth
-  * OAuth, Google
-  * SberID, Yandex (ru)
+  - OAuth, Google
+  - SberID, Yandex (ru)
 - Shopping cart
 - Payments
-  * credit/debit card
-  * PayPal/Yandex Money
+  - credit/debit card
+  - PayPal/Yandex Money
 - Delivery (location)
 - Localization/internationalization
 - Paid services
-  * mail, SMS (ru)
-  * hosting (ru)
-  * domain (ru)
+  - mail, SMS (ru)
+  - hosting (ru)
+  - domain (ru)
 - Production deployment
-  * HTTPs
+  - HTTPs
 - Oriented on Russian market (ru)
 - Analytics, advertisment
 - Social media sharing/commenting
-  * Disqus
+  - Disqus
 - Updates, newsletter, RSS
 - Docker/Nginx/Gunicorn
-
 
 ### Roadmap
 
@@ -54,7 +52,7 @@ Possible project features:
 - [ ] auth/email/social + SPA
 - [x] shopping cart
 - [x] orders
-- [ ] payments
+- [ ] **payments**
 - [ ] localization
 - [ ] docker/production
 - [ ] enhance model + interface/markup
@@ -66,7 +64,7 @@ Users can add berries to the shopping cart and then buy them all at once. Every 
 one shopping cart which contains berries from the list of available berries on the home page.
 Users can list berries in the cart, add, remove or clear the whole cart from berries. Shopping
 cart is only available for authenticated and verified users. If the berry was deleted or run out
-the user should notice that is the cart. 
+the user should notice that is the cart.
 
 - GET `/cart/` should list cart berries for session user.
 - POST `/cart/<berry_id>/` should add berry to the cart.
@@ -74,7 +72,7 @@ the user should notice that is the cart.
 - DELETE `/cart/<berry_id>/` should destroy berry in the cart.
 
 Authenticated users should be presented with the cart icon on the header. In which all cart-added
-berries will be rendered. The users can add any berry to the cart by clicking the button. Users also 
+berries will be rendered. The users can add any berry to the cart by clicking the button. Users also
 can remove berries from the cart or clear the whole cart. Users should see whether the berry is added
 to the cart or not (via berries API).
 
@@ -82,6 +80,42 @@ to the cart or not (via berries API).
 - remove berry button on the berry page
 - shopping cart page
 - clear shopping cart on the cart page
+
+### Payments
+
+The goal of payments is to **get money from the customer**. To make payments work I will integrate QIWI P2P API into own backend API. QIWI P2P is a person-to-person API:
+
+It will be used to:
+
+- invoice bills when users submits an order
+
+- check bill status or receive a web hook when bill is paid
+
+Because payment API will be integrated into existing backend, our backend will be depended upon the database state of another system and some action will required to query this state to determine response to initial request.
+
+My API will utilize (be powered by) the already built financial infrastructure.
+
+### Payment info
+
+It will take:
+
+- 0% fee via QIWI wallet or cart via QIWI
+
+- 2% fee via cart (other)
+
+- 2% withdraw fee + 50 rubles (cash from QIWI cart or transfer to the cart)
+
+You can get money via form, username, link, widget or API calls (create form).
+
+Bill can be paid via:
+
+- debit cart
+
+- Google Pay / Apple Pay
+
+- QIWI wallet
+
+- Express payment system
 
 #### Orders
 
@@ -98,7 +132,6 @@ from all berries in the cart.
 - learn how to go from idea to the final result
 - learn how to design, manage, work on project
 - and a lot of other software development / business skills
-
 
 ### Project uniqueness and difference
 

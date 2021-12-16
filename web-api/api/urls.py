@@ -18,7 +18,9 @@ urlpatterns = [
     re_path(r'^auth/registration/account-confirm-email/', VerifyEmailView.as_view(), name='account_email_verification_sent'),
     re_path(r'^auth/registration/account-confirm-email/(?P<key>[-:\w]+)/$', VerifyEmailView.as_view(), name='account_confirm_email'),
 
+    path("accounts/", include("allauth.urls")),
+
     # Social auth
-    path('auth/vk/', VKLoginView.as_view(), name='vk_login'),
-    path('auth/google/', GoogleLoginView.as_view(), name='google_login'),
+    # path('auth/vk/', VKLoginView.as_view(), name='vk_login'),
+    # path('auth/google/', GoogleLoginView.as_view(), name='google_login'),
 ]
