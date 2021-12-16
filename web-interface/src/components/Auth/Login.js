@@ -87,6 +87,7 @@ function Login() {
                     <Button type="submit" size="lg" color="primary">Submit</Button>
                 </FormGroup>
             </Form>
+            <Button color="primary">Login with VK</Button>
         </Container>
     );
 }
