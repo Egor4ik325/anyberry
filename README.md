@@ -107,9 +107,31 @@ The relation is 1 to 1:
 
 So the information about the bill can be integrated into order response or be in a separate sub-endpoint.
 
+**Information about the order for client**:
+
+- berries that are ordered
+
+- total price of all berries (same as pay amount)
+
+- user how ordered (request.user)
+
+- where to pay for order
+
+- how much to pay
+
+- in which currency to pay
+
+- when was the order bill created to pay
+
+- when will the bill be expired
+
+- the order status (depends on bill status)
+
 Checklist:
 
 - [x] Create bill when order is created
+
+- [x] Order bill API (own)
 
 ### Payment info
 
