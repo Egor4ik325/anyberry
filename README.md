@@ -87,13 +87,29 @@ The goal of payments is to **get money from the customer**. To make payments wor
 
 It will be used to:
 
-- invoice bills when users submits an order
+- invoice bills when users submits an order, the order state when requested will be `pending`
 
-- check bill status or receive a web hook when bill is paid
+- check bill status or receive a web hook when bill is paid, serialize order status in response
+
+- reject bill if order is rejected
 
 Because payment API will be integrated into existing backend, our backend will be depended upon the database state of another system and some action will required to query this state to determine response to initial request.
 
-My API will utilize (be powered by) the already built financial infrastructure.
+My API will utilize (be powered by) the already built financial infrastructure through "duplicate" API calls when
+my API is called.
+
+**Relation between orders and bills**:
+
+The relation is 1 to 1:
+
+- one order can have only 1 bill
+- bill can belong only to 1 order
+
+So the information about the bill can be integrated into order response or be in a separate sub-endpoint.
+
+Checklist:
+
+- [x] Create bill when order is created
 
 ### Payment info
 

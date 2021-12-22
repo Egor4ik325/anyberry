@@ -1,10 +1,9 @@
 import uuid
 
 from django.db import models
-from django.shortcuts import reverse
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-
-from payments.api_client import QIWIAPIClient
+from qiwi_api import client
 
 
 class Order(models.Model):
@@ -13,17 +12,19 @@ class Order(models.Model):
     berries = models.ManyToManyField(
         "berries.Berry", verbose_name=_("berries"))
     bill_uuid = models.UUIDField(
-        _("bill UUID"), default=uuid.uuid4(), editable=False)
+        _("bill UUID"), editable=False)
 
     @property
-    def amount(self):
-        # TODO: calculate total order amount values (django-money)
+    def amount(self) -> float:
+        """Calculate total order amount values (django-money)."""
         return 1.00
 
     def save(self, **kwargs):
-        # Invoice a bill
-        client = QIWIAPIClient()
-        client.invoice_bill(self.bill_uuid, self.amount, comment=f"Bill for order #{self.pk}")
+        """Invoice a bill when new order is created (synchronously)."""
+        bill_id = uuid.uuid4()
+        client.invoice_bill(str(bill_id), self.amount,
+                            comment=f"Bill for order #{self.pk}")
+        self.bill_uuid = bill_id
 
         super().save(**kwargs)
 
@@ -36,3 +37,5 @@ class Order(models.Model):
 
     def get_absolute_url(self):
         return reverse("order_detail", kwargs={"pk": self.pk})
+
+# TODO: add on delete signal handler
