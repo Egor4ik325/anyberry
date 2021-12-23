@@ -4,14 +4,17 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
-django-environ = "*"
-djangorestframework = "*"
+django = "4.0"
+django-environ = "0.8"
+djangorestframework = "3.13"
 django-cors-headers = "*"
-django-money = "*"
-pillow = "*"
-dj-rest-auth = "*"
-django-allauth = "*"
+django-money = "2.1"
+pillow = "8.4.0"
+dj-rest-auth = "2.2.1"
+django-allauth = "0.47"
+redis = "4.0.2"
+django-redis = "5.2"
+hiredis = "2.0.0"
 
 [dev-packages]
 pylint = "*"

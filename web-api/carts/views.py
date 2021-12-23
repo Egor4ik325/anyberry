@@ -1,15 +1,13 @@
+from berries.models import Berry
 from django.shortcuts import get_object_or_404
-from django.utils.translation import ugettext_lazy as _
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from django.utils.translation import gettext_lazy as _
+from orders.models import Order
+from rest_framework import status, viewsets
 from rest_framework.exceptions import NotFound
-from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from .models import ShoppingCart
 from .serializers import ShoppingCartSerializer
-from berries.models import Berry
-from orders.models import Order
 
 
 class ShoppingCartBerriesViewSet(viewsets.ViewSet):

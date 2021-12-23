@@ -1,0 +1,22 @@
+version: "3.9"
+
+volumes:
+  redis_data: null
+
+networks:
+  anyberry:
+    name: anyberry
+
+services:
+  redis:
+    image: redis:6
+    container_name: anyberry_redis
+    networks:
+      - anyberry
+    volumes:
+      - redis_data:/data
+    ports:
+      - target:
+          6379
+        published:
+          6379

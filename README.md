@@ -1,6 +1,6 @@
 # Anyberry
 
-E-commerce website for buying fresh &amp; tasty berries 🍓. Healthy organic food for any one!
+**E-commerce** website for buying fresh &amp; tasty berries 🍓. Healthy organic food for any one!
 
 > Real app with real features!
 
@@ -52,7 +52,9 @@ Possible project features:
 - [ ] auth/email/social + SPA
 - [x] shopping cart
 - [x] orders
-- [ ] **payments**
+- [ ] payments
+- [ ] favorite berries
+
 - [ ] localization
 - [ ] docker/production
 - [ ] enhance model + interface/markup
@@ -107,7 +109,7 @@ The relation is 1 to 1:
 
 So the information about the bill can be integrated into order response or be in a separate sub-endpoint.
 
-**Information about the order for client**:
+### Information about the order for client:
 
 - berries that are ordered
 
@@ -127,13 +129,23 @@ So the information about the bill can be integrated into order response or be in
 
 - the order status (depends on bill status)
 
-Checklist:
+**Checklist:**
 
 - [x] Create bill when order is created
 
-- [x] Order bill API (own)
+- [x] Order bill proxy API (for QIWI API)
 
-### Payment info
+- [ ] Cache bill information view (prevent expensive API requests, serialization, ...)
+
+**Caching benchmark**:
+
+Caching for 1 minute (60 seconds)
+
+| Get bill (first run) | Get bill (cached) | Get order (no cache) |
+| -------------------- | ----------------- | -------------------- |
+| 200-400 ms           | 10-15 ms          | 8-10 ms              |
+
+### Payments provider information
 
 It will take:
 
@@ -163,10 +175,16 @@ from all berries in the cart.
 - POST `/cart/` will make an order
 - GET `/orders/` will return user's orders
 
+## Favorite berries
+
+The user can add/remove berries from the favorite list or wish list. Later he can came back and move
+all or individual berries from the with to the cart for further buying and paying the bill.
+
 ### Project goals
 
+- make usable e-commerce website
 - learn how to make a little bit "real" website
-- learn how to integrade with other web services
+- learn how to integrate with other web services
 - learn how to go from idea to the final result
 - learn how to design, manage, work on project
 - and a lot of other software development / business skills
