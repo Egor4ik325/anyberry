@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from qiwi_api import client
 from rest_framework import permissions, viewsets
 from rest_framework.decorators import action
@@ -14,6 +16,7 @@ class OrdersViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     @action(methods=["GET"], detail=True, url_path="bill", url_name="bill")
+    @method_decorator(cache_page(60))
     def get_bill(self, request, pk) -> Response:
         order: Order = get_object_or_404(Order, pk=pk)
         bill = client.get_bill(order.bill_uuid)
