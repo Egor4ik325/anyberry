@@ -112,10 +112,12 @@ DATABASES = {
     }
 }
 
+REDIS_URL = env("REDIS_URL")
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": env("REDIS_URL"),
+        "LOCATION": REDIS_URL,
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -238,3 +240,7 @@ CSRF_COOKIE_SAMESITE = 'None'
 QIWI_API_TOKEN = env("QIWI_API_TOKEN")
 QIWI_P2P_PUBLIC_KEY = env("QIWI_P2P_PUBLIC_KEY")
 QIWI_P2P_SECRET_KEY = env("QIWI_P2P_SECRET_KEY")
+
+# Celery and friends (redis as a message broker + result backend)
+CELERY_BROKER_URL = env("CELERY_BROKER")
+CELERY_RESULT_BACKEND = env("CELERY_BACKEND")

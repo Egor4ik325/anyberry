@@ -141,9 +141,9 @@ So the information about the bill can be integrated into order response or be in
 
 Caching for 1 minute (60 seconds)
 
-| Get bill (first run) | Get bill (cached) | Get order (no cache) |
-| -------------------- | ----------------- | -------------------- |
-| 200-400 ms           | 10-15 ms          | 8-10 ms              |
+| Get bill (cold run) | Get bill (without cache) | Get bill (cached) | Get order (no cache) |
+| ------------------- | ------------------------ | ----------------- | -------------------- |
+| up to 1626 ms       | 200-400 ms               | 10-15 ms          | 8-10 ms              |
 
 ### Payments provider information
 

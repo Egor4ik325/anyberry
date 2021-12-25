@@ -15,6 +15,7 @@ django-allauth = "0.47"
 redis = "4.0.2"
 django-redis = "5.2"
 hiredis = "2.0.0"
+celery = "==5.2.1"
 
 [dev-packages]
 pylint = "*"

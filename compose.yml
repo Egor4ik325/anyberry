@@ -1,0 +1,46 @@
+version: "3.9"
+
+volumes:
+  redis_data: null
+
+networks:
+  anyberry:
+    name: anyberry
+
+services:
+  # Django web API
+  django:
+    build: ./web-api
+    # Run the API server
+    command: python manage.py runserver 0.0.0.0:8000
+    # Sync files via volume
+    volumes:
+      - ./web-api:/app
+    env_file: ./web-api/anyberry/.env
+    depends_on:
+      - redis
+
+  # Redis for cache storage
+  redis:
+    image: redis:6
+    container_name: anyberry_redis
+    networks:
+      - anyberry
+    volumes:
+      - redis_data:/data
+    ports:
+      - target: 6379
+        published: 6379
+
+  # Celery worker container (process) task queue
+  celeryworker:
+    # Build the image for Celery (same as for Django API)
+    build: ./web-api
+    # Start the celery worker (only difference from Django)
+    command: celery --app=anyberry worker --loglevel=INFO
+    # Share local:container files in the volume
+    volumes:
+      - ./web-api:/app
+    env_file: ./web-api/anyberry/.env
+    depends_on:
+      - redis
