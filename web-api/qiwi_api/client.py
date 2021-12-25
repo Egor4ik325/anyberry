@@ -5,6 +5,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
+from json.decoder import JSONDecodeError
 from typing import Literal, TypedDict
 from uuid import UUID
 
@@ -29,7 +30,8 @@ class QIWIAPIClient:
     secret_key = settings.QIWI_P2P_SECRET_KEY
 
     endpoints = {
-        "get_bill": f"{P2P_API_ORIGIN}/partner/bill/v1/bills/{{bill_id}}"
+        "get_bill": f"{P2P_API_ORIGIN}/partner/bill/v1/bills/{{bill_id}}",
+        "reject_bill": f"{P2P_API_ORIGIN}/partner/bill/v1/bills/{{bill_id}}/reject",
     }
 
     def __init__(self):
@@ -60,18 +62,41 @@ class QIWIAPIClient:
             raise QIWIAPIError from e
 
     def get_bill(self, bill_id: UUID) -> Bill:
-        try:
-            response = self.session.get(
-                self.endpoints["get_bill"].format(bill_id=str(bill_id)))
-            response.raise_for_status()
+        response = self.session.get(
+            self.endpoints["get_bill"].format(bill_id=str(bill_id)))
 
-            bill_dict = response.json()
-            return Bill(**bill_dict)
+        # Check for exceptions on 4xx, 5xx, 6xx status codes
+        try:
+            response.raise_for_status()
         except HTTPError as e:
+            # TODO: parse body to get as much information about the error as possible
             raise QIWIAPIError from e
 
-    def reject_bill(self, bill_id):
-        pass
+        # Check for parsing exceptions
+        try:
+            bill_dict = response.json()
+            return Bill(**bill_dict)
+        except JSONDecodeError as e:
+            raise QIWIAPIError from e
+
+    def reject_bill(self, bill_id: UUID) -> Bill:
+        """Rejects the bill and returns the resulted bill with REJECTED status."""
+        response = self.session.post(
+            self.endpoints["reject_bill"].format(bill_id=bill_id))
+
+        # Check for client or server errors (provide library client with error feedback)
+        try:
+            response.raise_for_status()
+        except HTTPError as e:
+            # TODO: initialize exception based on error response.data
+            raise QIWIAPIError() from e
+
+        try:
+            bill_dict = response.json()
+        except JSONDecodeError as e:
+            raise QIWIAPIError("Response was not in JSON file format.") from e
+
+        return Bill(**bill_dict)
 
 
 class Bill:

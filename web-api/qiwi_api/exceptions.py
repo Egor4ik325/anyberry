@@ -1,4 +1,5 @@
 class QIWIAPIError(Exception):
+    # TODO: add QIWI-specific JSON response error fields
     data = {}
     code = "QIWIAPIError"
     message = "Error occur while using QIWI API."
