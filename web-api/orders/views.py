@@ -31,6 +31,7 @@ class OrdersViewSet(viewsets.ReadOnlyModelViewSet):
             bill = client.get_bill(order.bill_uuid)
 
             # TODO: check whether the bill is rejected => bill not found (404)
+            # (or the order just will be deleted before we save the id)
 
             # Serialize bill for API
             bill_dict = serialize_bill(bill)

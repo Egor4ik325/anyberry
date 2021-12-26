@@ -3,13 +3,13 @@ QIWI API Python client library.
 """
 from __future__ import annotations
 
-from datetime import datetime
 from enum import Enum
 from json.decoder import JSONDecodeError
 from typing import Literal, TypedDict
 from uuid import UUID
 
 import requests
+from dateutil.parser import isoparse
 from django.conf import settings
 from moneyed import Money
 from requests.models import HTTPError
@@ -126,7 +126,7 @@ class Bill:
 
         def __init__(self, value: StatusValue, changedDateTime: str):
             self.value = value
-            self.changed_date_time = datetime.fromisoformat(changedDateTime)
+            self.creation_date_time = isoparse(changedDateTime)
 
     def __init__(self, siteId: str, billId: str, amount: Bill.AmountDictType, status: Bill.StatusDictType, comment: str, creationDateTime: str, expirationDateTime: str, payUrl: str):
         self.site_url = siteId
@@ -134,8 +134,9 @@ class Bill:
         self.amount = Bill.Amount(**amount)
         self.status = Bill.Status(**status)
         self.comment = comment
-        self.creation_date_time = datetime.fromisoformat(creationDateTime)
-        self.expiration_date_time = datetime.fromisoformat(expirationDateTime)
+        # datetime.fromiso doesn't support ISO
+        self.creation_date_time = isoparse(creationDateTime)
+        self.expiration_date_time = isoparse(expirationDateTime)
         self.pay_url = payUrl
 
 

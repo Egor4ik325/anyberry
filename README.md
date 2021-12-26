@@ -40,11 +40,12 @@ Possible project features:
 - Production deployment
   - HTTPs
 - Oriented on Russian market (ru)
-- Analytics, advertisment
+- Analytics, advertisement
 - Social media sharing/commenting
   - Disqus
 - Updates, newsletter, RSS
 - Docker/Nginx/Gunicorn
+- Redis (cache store + NoSQL database)
 
 ### Roadmap
 
@@ -135,7 +136,13 @@ So the information about the bill can be integrated into order response or be in
 
 - [x] Order bill proxy API (for QIWI API)
 
-- [ ] Cache bill information view (prevent expensive API requests, serialization, ...)
+- [x] Cache bill information view (prevent expensive API requests, serialization, ...)
+
+- [x] Reject bill on order reject
+
+- [x] Endpoint to get information about bill reject task
+
+- [ ] Payment webhook processing
 
 **Caching benchmark**:
 
@@ -144,6 +151,11 @@ Caching for 1 minute (60 seconds)
 | Get bill (cold run) | Get bill (without cache) | Get bill (cached) | Get order (no cache) |
 | ------------------- | ------------------------ | ----------------- | -------------------- |
 | up to 1626 ms       | 200-400 ms               | 10-15 ms          | 8-10 ms              |
+
+**Tasks API endpoint:**
+
+To delay the reject bill API call the order API will return a task id of task associated with rejecting the bill.
+To get the result and status of task from the _Redis result backend_ via Celery task API will be available.
 
 ### Payments provider information
 
