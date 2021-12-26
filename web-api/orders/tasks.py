@@ -2,6 +2,7 @@ from uuid import UUID
 
 from celery import shared_task
 from celery.result import AsyncResult
+from django.core.mail import send_mail
 from qiwi_api import client
 from qiwi_api.exceptions import QIWIAPIError
 
@@ -16,3 +17,11 @@ def reject_bill(bill_id: UUID) -> AsyncResult:
     except QIWIAPIError as e:
         # TODO: handle the error some how or try retring
         raise e
+
+
+@shared_task
+def send_order_cheque(bill_dict: dict):
+    """
+    Send order cheque when the order bill was paid.
+    """
+    pass

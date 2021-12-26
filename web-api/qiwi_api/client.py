@@ -44,6 +44,7 @@ class QIWIAPIClient:
         self.session.headers = base_headers  # type: ignore
 
     def invoice_bill(self, bill_id: str, amount_value, amount_currency="RUB", comment="Berry bill"):
+        # TODO: add more parametors (customer id, phone, email + customFields)
         base_url = f"{P2P_API_ORIGIN}/partner/bill/v1/bills/{bill_id}"
         body = {
             "amount": {
@@ -128,8 +129,8 @@ class Bill:
             self.value = value
             self.creation_date_time = isoparse(changedDateTime)
 
-    def __init__(self, siteId: str, billId: str, amount: Bill.AmountDictType, status: Bill.StatusDictType, comment: str, creationDateTime: str, expirationDateTime: str, payUrl: str):
-        self.site_url = siteId
+    def __init__(self, siteId: str, billId: str, amount: Bill.AmountDictType, status: Bill.StatusDictType, comment: str, creationDateTime: str, expirationDateTime: str, payUrl: str, *args, **kwargs):
+        self.site_id = siteId
         self.bill_id = UUID(billId)
         self.amount = Bill.Amount(**amount)
         self.status = Bill.Status(**status)

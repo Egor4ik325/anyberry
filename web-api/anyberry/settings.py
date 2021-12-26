@@ -35,7 +35,9 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+# local + QIWI IPs
+ALLOWED_HOSTS = env(
+    "ALLOWED_HOSTS", default="localhost .ngrok.io 127.0.0.1 79.142.16.0/20 195.189.100.0/22 91.232.230.0/23 91.213.51.0/24").split()
 
 
 # Application definition

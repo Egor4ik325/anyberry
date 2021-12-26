@@ -4,6 +4,44 @@
 
 > Real app with real features!
 
+## Running
+
+Start redis:
+
+```bash
+docker compose up -d redis
+```
+
+Start the celery worker for processing tasks:
+
+```sh
+celery --app=anyberry worker --loglevel=INFO
+```
+
+Run Django server:
+
+```sh
+./manage.py runserver
+```
+
+**QIWI callbacks**:
+
+For working with QIWI API and process payment callbacks:
+
+QIWI requirements:
+
+- HTTPs (:443) server signed certificate by authority:
+
+Start ngrok tunnel from `https://xxx.ngrok.io:443` to the local server `http://localhost:8000`:
+
+```sh
+ngrok http 8000
+```
+
+Change QIWI callback URL to the radom ngrok URL `https://xxx.ngrok.io`. Sadly it is required every time ngrok is being restarted.
+
+`https://xxx.ngrok.io/api/v1/qiwi/callback/`
+
 ## Description
 
 ### What I want this project to be like?
@@ -110,6 +148,17 @@ The relation is 1 to 1:
 
 So the information about the bill can be integrated into order response or be in a separate sub-endpoint.
 
+### Payment event
+
+When the bill is paid the request is sent to the webhook for processing this event.
+The server will:
+
+1. Push a background task to the queue (with paid bill id)
+
+2. Send an email to the order user with the payment receipt and information about delivery
+
+3. delivery should be started
+
 ### Information about the order for client:
 
 - berries that are ordered
@@ -134,7 +183,7 @@ So the information about the bill can be integrated into order response or be in
 
 - [x] Create bill when order is created
 
-- [x] Order bill proxy API (for QIWI API)
+- [x] Order bill proxy API (API facade) (for QIWI API)
 
 - [x] Cache bill information view (prevent expensive API requests, serialization, ...)
 
@@ -191,6 +240,10 @@ from all berries in the cart.
 
 The user can add/remove berries from the favorite list or wish list. Later he can came back and move
 all or individual berries from the with to the cart for further buying and paying the bill.
+
+## Berry delivery
+
+When the order is placed and paid it should be in delivery status meaning going to the client.
 
 ### Project goals
 
