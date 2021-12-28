@@ -94,8 +94,6 @@ def qiwi_callback_view(request: Request) -> Response:
     if not hmac.compare_digest(api_signature, signature):
         raise SignatureNotMatchError
 
-    # TODO: check the bill status is PAID
-
     send_order_cheque.delay(bill.bill_id)
 
     # Always send 200 response

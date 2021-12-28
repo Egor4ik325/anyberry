@@ -127,7 +127,7 @@ class Bill:
 
         def __init__(self, value: StatusValue, changedDateTime: str):
             self.value = value
-            self.creation_date_time = isoparse(changedDateTime)
+            self.changed_date_time = isoparse(changedDateTime)
 
     def __init__(self, siteId: str, billId: str, amount: Bill.AmountDictType, status: Bill.StatusDictType, comment: str, creationDateTime: str, expirationDateTime: str, payUrl: str, *args, **kwargs):
         self.site_id = siteId

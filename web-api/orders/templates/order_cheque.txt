@@ -1,0 +1,11 @@
+Hello, {{ username }}. We successfully your payment for order {{ order }} bill.
+
+Purchased berries:
+{% for berry in berries %}
+  - {{ berry }}
+{% endfor %}
+
+Total cost: {{ amount }} {{ currency }}
+Payment time: {{ paid_time }}
+
+For more information contact us.

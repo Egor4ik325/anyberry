@@ -1,0 +1,17 @@
+<p>
+  Hello, {{ username }}. We successfully your payment for order {{ order }}
+  bill.
+</p>
+
+<ul>
+  <li>Purchased berries:</li>
+  <ol>
+    {% for berry in berries %}
+      <li>{{ berry }}</li>
+    {% endfor %}
+  </ol>
+  <li>Total cost: <mark>{{ amount }} {{ currency }}</mark></li>
+  <li>Payment time: {{ paid_time }}</li>
+</ul>
+
+<p>For more information contact us.</p>
