@@ -3,6 +3,7 @@ from uuid import UUID
 from celery import shared_task
 from celery.result import AsyncResult
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
@@ -37,11 +38,16 @@ def send_order_cheque(bill_id: UUID):
     - violates function business logic
     """
 
+    # Key prefix for cache
+    cache_key = f"send_cheque_{bill_id}"
+
     # The situation when bill is already sent will be considered normal (for user)
     # because it is normat that API can send duplicate webhook requests
-    # TODO
+    if cache.get(cache_key) is not None:
+        return 0
 
     bill = client.get_bill(bill_id)
+
     # The situation when bill is not paid will not be considered normal
     # because the user excepts it to be paid, the program should notify
     # that he is wrong by raising an exception.
@@ -54,7 +60,7 @@ def send_order_cheque(bill_id: UUID):
     user = order.user
 
     context = {
-        "username": user.username,
+        "username": user,
         "order": order,
         "amount": bill.amount.amount,
         "currency": bill.amount.currency,
@@ -69,9 +75,19 @@ def send_order_cheque(bill_id: UUID):
                                   recipient_list=[user.email],
                                   from_email=None)
 
-    # Save information bill sent email in the Redis/cache (temporary database)
+    # Save information sent cheque in the Redis/cache (temporary database)
     if sent_emails_count == 1:
-        pass  # TODO
+        cheque = {
+            "username": user.username,
+            "order": order.id,
+            "amount": bill.amount.amount,
+            "currency": bill.amount.currency,
+            "berries": list(order.berries.values("id")),  # serialize berries
+            "paid_time": bill.status.changed_date_time,
+        }
+        day_seconds = 60 * 60 * 24
+        # Save cheque for furter retrieving
+        cache.set(cache_key, cheque, timeout=day_seconds)
 
     return sent_emails_count
 

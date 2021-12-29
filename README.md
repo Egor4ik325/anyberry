@@ -92,7 +92,7 @@ Possible project features:
 - [x] shopping cart
 - [x] orders
 - [ ] payments
-- [ ] favorite berries
+- [ ] favorite list
 
 - [ ] localization
 - [ ] docker/production
@@ -191,7 +191,7 @@ The server will:
 
 - [x] Endpoint to get information about bill reject task
 
-- [ ] Payment webhook processing
+- [x] Payment webhook processing
 
 **Caching benchmark**:
 
@@ -244,6 +244,14 @@ all or individual berries from the with to the cart for further buying and payin
 ## Berry delivery
 
 When the order is placed and paid it should be in delivery status meaning going to the client.
+
+## Order cheque
+
+In order to store information about sent order cheques to users to prevent duplicate sending if
+QIWI duplicate the payment webhook it will be stored in the Redis/cache for 1 day.
+
+- persistent (after Redis reboot)
+- expires after 1 day (43,200 seconds)
 
 ### Project goals
 
