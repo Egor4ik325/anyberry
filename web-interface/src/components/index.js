@@ -6,6 +6,6 @@ export { default as Contact } from "./Contact";
 export { default as Berry } from "./Berry";
 
 export { default as Login } from "./Auth/Login"
-export { default as Signup } from "./Auth/Signup"
+export { default as Logout } from "./Auth/Logout"
 
 export { default as Cart } from "./Cart";

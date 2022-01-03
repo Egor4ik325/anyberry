@@ -91,8 +91,9 @@ Possible project features:
 - [ ] auth/email/social + SPA
 - [x] shopping cart
 - [x] orders
-- [ ] payments
+- [x] payments
 - [ ] favorite list
+- [ ] auth interface
 
 - [ ] localization
 - [ ] docker/production

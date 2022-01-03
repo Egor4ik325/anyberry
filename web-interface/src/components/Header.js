@@ -7,6 +7,7 @@ import { faUserCircle } from "@fortawesome/free-solid-svg-icons"
 
 // Header = Navbar (Container) or Nav (Container)
 function Header(props) {
+    const { isAuthenticated } = props;
     return (
         <Navbar color="dark" dark expand="md" className="mb-4">
             <Container fluid className="d-flex justify-content-start mx-4">
@@ -22,25 +23,28 @@ function Header(props) {
                     <NavItem>
                         <Link className="nav-link text-light" to="/contact">Contact</Link>
                     </NavItem>
-                    <NavItem>
-                        <Link className="nav-link text-light" to="/account">Account</Link>
-                    </NavItem>
-                    <NavItem>
-                        <Link className="nav-link text-light" to="/cart">Cart</Link>
-                    </NavItem>
+                    {
+                        isAuthenticated &&
+                        <>
+                            <NavItem>
+                                <Link className="nav-link text-light" to="/account">Account</Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link className="nav-link text-light" to="/cart">Cart</Link>
+                            </NavItem>
+                        </>
+                    }
                 </Nav>
                 {
                     !props.isAuthenticated ?
-                        <div>
+                        <>
                             <Link className="btn btn-outline-light me-2" to="/login">Log-in</Link>
                             <Link className="btn btn-danger" to="/signup">Sign-up</Link>
-                        </div>
+                        </>
                         :
-                        <div className="d-flex align-items-center">
-                            {/* <p>You are logged-in!</p> */}
-                            <Link className="btn btn-outline-light me-4" to="/logout">Logout</Link>
-                            <FontAwesomeIcon icon={faUserCircle} size="2x" />
-                        </div>
+                        <>
+                            <Link className="btn btn-outline-light" to="/Logout">Logout</Link>
+                        </>
                 }
             </Container>
         </Navbar >

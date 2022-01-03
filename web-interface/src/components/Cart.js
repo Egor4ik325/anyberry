@@ -58,7 +58,7 @@ export default function Cart(props) {
     }
 
     useEffect(() => {
-        fetchCart();
+        // fetchCart();
     }, [setCart]);
 
     const renderCart = () => {
