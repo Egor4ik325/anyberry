@@ -1,6 +1,6 @@
 import axios from "axios";
 import { USER_URL } from "../Constants";
-import { APIError } from "./exceptions";
+import { APIError, RegistrationError, DetailError, RegistrationBadRequestError } from "./exceptions";
 import endpoints from "./endpoints";
 
 // Determine whether user session 
@@ -20,7 +20,7 @@ export const checkSession = async () => {
 
 // Make a registration request to the API
 // Return response or raised error object
-const register = async ({username, email, password}) => {
+export const register = async ({username, email, password}) => {
     try {
         const response = await axios.post(endpoints.register, {
             username: username,
@@ -29,19 +29,24 @@ const register = async ({username, email, password}) => {
             password2: password,
         });
 
-        return RegisterResponse(response.data)
+        return new RegistrationResponse(response);
     } catch (error) {
         // Notify registering user about API exceptions
 
         // If non-2xx response status code
         if (error.response) {
+            // Dispatch error type based on status code
+            if (error.response.status === 400) {
+                throw new RegistrationBadRequestError(error.response);
+            }
+
             // Extract information about error from response
             if ("detail" in error.response) {
-                throw APIError(error.response.detail);
+                throw new DetailError({ detail: error.response.detail });
             }
 
             // Construct and raise error object (exception)
-            throw APIError("Registration error");
+            throw new RegistrationError();
         }
 
         // Reraise other exceptions
@@ -49,10 +54,9 @@ const register = async ({username, email, password}) => {
     }
 }
 
-class DetailResponse {
-    constructor({detail, ...rest}) {
+class RegistrationResponse {
+    constructor(response) {
+        const { detail = null } = response.data;
         this.detail = detail;
     }
 }
-
-class RegisterResponse extends DetailResponse { }

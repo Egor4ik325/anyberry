@@ -1,12 +1,9 @@
 import React from "react";
-import { Container } from "reactstrap";
 
 const Footer = () => {
     return (
-        <footer className="py-3 bg-dark">
-            <Container>
-                <p className="text-center text-white">Since 1985</p>
-            </Container>
+        <footer className="mt-auto bg-dark">
+            <div className="text-center text-white fst-italic my-2">Since 1985</div>
         </footer>
     );
 }

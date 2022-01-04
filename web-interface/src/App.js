@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 import Signup from "./pages/Signup";
 import Account from "./pages/Account";
 import NotFound from "./pages/NotFound";
+import EmailVerification from "./pages/EmailVerification";
 import { checkSession } from "./api/Auth";
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
                 <Route path="/contact" exact component={() => <Contact />} />,
                 <Route path="/login" exact children={<Login />} />,
                 <Route path="/signup" exact children={<Signup />} />,
+                <Route path="/email/verify/:email" exact children={ <EmailVerification /> } />,
               ]
           }
           <Route path="*">
