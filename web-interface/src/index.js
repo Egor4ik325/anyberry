@@ -1,9 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.css';
+
+// Import Bootstrap pre-compiled CSS and JavaScript files
+// import "bootstrap/dist/css/bootstrap.css"
+// import "bootstrap/dist/js/bootstrap"
+
+// Bootstrap icons kit
 import 'bootstrap-icons/font/bootstrap-icons.css';
+
+import "./scss/anyberry.scss"
 
 // Just renders main App component
 ReactDOM.render(

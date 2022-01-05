@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BERRIES_URL } from "../Constants";
+import { BERRIES_URL } from "./constants";
 
 export const getBerry = async id => {
     try {

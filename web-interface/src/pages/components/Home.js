@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { API_URL } from "../Constants";
+import { API_URL } from "../../api/constants";
 import { Container, Card, CardBody, CardSubtitle, CardText, CardTitle, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 

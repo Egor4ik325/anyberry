@@ -1,5 +1,5 @@
 import axios from "axios";
-import { USER_URL } from "../Constants";
+import { USER_URL } from "./constants";
 import { APIError, RegistrationError, DetailError, RegistrationBadRequestError } from "./exceptions";
 import endpoints from "./endpoints";
 
@@ -54,9 +54,22 @@ export const register = async ({username, email, password}) => {
     }
 }
 
-class RegistrationResponse {
+class DetailResponse {
     constructor(response) {
         const { detail = null } = response.data;
         this.detail = detail;
+    }
+}
+
+class RegistrationResponse extends DetailResponse { }
+
+export const resendEmail = async ({ email }) => {
+    try {
+        const response = await axios.post(endpoints.resend, { email: email });
+
+        return new DetailResponse(response);
+    } catch (error) {
+        // Should not be any API errors (even throttling )
+        throw error;
     }
 }

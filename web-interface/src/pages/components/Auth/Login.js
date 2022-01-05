@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Container, Form, FormGroup, Input, Label, Button } from "reactstrap";
 
-import { LOGIN_URL, USER_URL } from "../../Constants";
+import { LOGIN_URL, USER_URL } from "../../../api/constants";
 
 function Login() {
     const [login, setLogin] = React.useState(null);

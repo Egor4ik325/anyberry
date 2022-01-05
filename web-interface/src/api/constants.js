@@ -1,3 +1,6 @@
+/*
+ * API-related constants, URLs, endpoints.
+ */
 export const API_URL = "http://localhost:8000/api/v1/"
 
 export const BERRIES_URL = API_URL + "berries/";

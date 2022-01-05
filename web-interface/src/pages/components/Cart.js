@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 
 // import { USER_URL, CART_URL } from "../Constants";
 
-import { getCartBerries, removeCartBerry } from "../api/Cart";
-import { getBerry } from "../api/Berry";
-import { clearCart } from "../api/Cart";
+import { getCartBerries, removeCartBerry } from "../../api/Cart";
+import { getBerry } from "../../api/Berry";
+import { clearCart } from "../../api/Cart";
 
 export default function Cart(props) {
     const [cart, setCart] = React.useState(null);

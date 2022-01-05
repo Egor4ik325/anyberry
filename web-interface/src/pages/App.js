@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+
+// Custom pages
+import Signup from "./Signup";
+import Account from "./Account";
+import NotFound from "./NotFound";
+import EmailVerification from "./EmailVerification";
+
+// Custom components
 import {
   Header, Footer, Home, About, Contact, Berry,
   Login, Logout,
   Cart,
 } from "./components";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import Signup from "./pages/Signup";
-import Account from "./pages/Account";
-import NotFound from "./pages/NotFound";
-import EmailVerification from "./pages/EmailVerification";
-import { checkSession } from "./api/Auth";
+
+// API client functions
+import { checkSession } from "../api/Auth";
 
 function App() {
   const [isAuthenticated, setAuthenticated] = useState(false);

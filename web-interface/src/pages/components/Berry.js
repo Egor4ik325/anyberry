@@ -3,8 +3,8 @@ import axios from "axios";
 import { useParams } from "react-router";
 import { Container, Row, Col, InputGroup, InputGroupText, Input } from "reactstrap";
 
-import { API_URL } from "../Constants";
-import { getCartBerries, addCartBerry, removeCartBerry } from "../api/Cart";
+import { API_URL } from "../../api/constants";
+import { getCartBerries, addCartBerry, removeCartBerry } from "../../api/Cart";
 
 export default function Berry(props) {
     let { id } = useParams();

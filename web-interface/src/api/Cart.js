@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-import { CART_URL } from "../Constants";
+import { CART_URL } from "./constants";
 
 
 export const getCartBerries = async () => {
