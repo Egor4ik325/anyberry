@@ -79,7 +79,7 @@ export default function Berry(props) {
                             !inCart ?
                                 <InputGroup size="lg" style={{ width: 300 }}>
                                     <InputGroupText>
-                                        <i class="bi bi-cart-plus"></i>
+                                        <i className="bi bi-cart-plus"></i>
                                     </InputGroupText>
                                     <Input type="button" value="Add to cart"
                                         onClick={addToCart} />
@@ -87,7 +87,7 @@ export default function Berry(props) {
                                 :
                                 <InputGroup size="lg" style={{ width: 300 }}>
                                     <InputGroupText>
-                                        <i class="bi bi-cart-dash"></i>
+                                        <i className="bi bi-cart-dash"></i>
                                     </InputGroupText>
                                     <Input type="button" value="Remove from cart"
                                         onClick={removeFromCart} />
@@ -95,7 +95,7 @@ export default function Berry(props) {
                             :
                             <InputGroup size="lg" style={{ width: 300 }}>
                                 <InputGroupText>
-                                    <i class="bi bi-cart-plus"></i>
+                                    <i className="bi bi-cart-plus"></i>
                                 </InputGroupText>
                                 <Input type="button" value="Add to cart" disabled />
                             </InputGroup>

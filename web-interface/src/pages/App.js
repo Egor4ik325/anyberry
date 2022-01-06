@@ -6,6 +6,7 @@ import Signup from "./Signup";
 import Account from "./Account";
 import NotFound from "./NotFound";
 import EmailVerification from "./EmailVerification";
+import Orders from "./Orders";
 
 // Custom components
 import {
@@ -37,6 +38,8 @@ function App() {
         <Switch>
           <Route path="/" exact component={() => <Home />} />
           <Route path="/berries/:id" exact children={<Berry isAuthenticated={isAuthenticated} />} />
+          <Route path="/about" exact component={() => <About />} />
+          <Route path="/contact" exact component={() => <Contact />} />
           {
             // Conditional routing
             isAuthenticated ?
@@ -44,11 +47,10 @@ function App() {
                 <Route path="/cart" exact children={<Cart isAuthenticated={isAuthenticated} />} />,
                 <Route path="/account" exact children={<Account />} />,
                 <Route path="/logout" exact children={<Logout />} />,
+                <Route path="/orders" exact children={<Orders />} />,
               ]
               :
               [
-                <Route path="/about" exact component={() => <About />} />,
-                <Route path="/contact" exact component={() => <Contact />} />,
                 <Route path="/login" exact children={<Login />} />,
                 <Route path="/signup" exact children={<Signup />} />,
                 <Route path="/email/verify/:email" exact children={ <EmailVerification /> } />,

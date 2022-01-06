@@ -14,9 +14,9 @@ import "./scss/anyberry.scss"
 
 // Just renders main App component
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <App />
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root')
 );
 

@@ -7,6 +7,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import cache_page
 from qiwi_api import Bill, client
+from qiwi_api.exceptions import QIWIAPIError
 from rest_framework import permissions, status, viewsets
 from rest_framework.authentication import (SessionAuthentication,
                                            TokenAuthentication)
@@ -36,7 +37,10 @@ class OrdersViewSet(viewsets.ReadOnlyModelViewSet):
         order: Order = get_object_or_404(Order, pk=pk)
 
         if order.bill_uuid is not None:
-            bill = client.get_bill(order.bill_uuid)
+            try:
+                bill = client.get_bill(order.bill_uuid)
+            except QIWIAPIError:
+                raise NotFound("Bill for this order doesn't exists!")
 
             # TODO: check whether the bill is rejected => bill not found (404)
             # (or the order just will be deleted before we save the id)

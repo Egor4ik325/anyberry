@@ -37,7 +37,7 @@ DEBUG = env('DEBUG')
 
 # local + QIWI IPs
 ALLOWED_HOSTS = env(
-    "ALLOWED_HOSTS", default="localhost .ngrok.io 127.0.0.1 79.142.16.0/20 195.189.100.0/22 91.232.230.0/23 91.213.51.0/24").split()
+    "ALLOWED_HOSTS", default="localhost localhost:3000 .ngrok.io 127.0.0.1 79.142.16.0/20 195.189.100.0/22 91.232.230.0/23 91.213.51.0/24").split()
 
 
 # Application definition
@@ -231,6 +231,12 @@ SITE_ID = 1
 # cors
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+# CORS_REPLACE# CORS_ORIGIN_WHITELIST = (
+#     'https://front.bluemix.net/',
+#     'front.bluemix.net',
+#     'bluemix.net',
+# )
+_HTTPS_REFERER = True
 
 # TODO: Samesite=None requires Secure cookies attribute
 
@@ -239,8 +245,10 @@ SESSION_COOKIE_HTTPONLY = False  # allow javascript/client access cookies
 SESSION_COOKIE_SAMESITE = 'None'  # send cookies to x
 
 # csrftoken
+CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://localhost:3000"]
 CSRF_COOKIE_HTTPONLY = False
 CSRF_COOKIE_SAMESITE = 'None'
+# CSRF_COOKIE_DOMAIN = 'bluemix.net'
 
 QIWI_API_TOKEN = env("QIWI_API_TOKEN")
 QIWI_P2P_PUBLIC_KEY = env("QIWI_P2P_PUBLIC_KEY")

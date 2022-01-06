@@ -1,38 +1,39 @@
 import React from "react";
-// import axios from "axios";
-import { Container, Button, Modal, ModalHeader, ModalBody } from "reactstrap";
+import axios from "axios";
+import { Container, Button, Modal, ModalHeader, ModalBody, Alert } from "reactstrap";
 import { useEffect } from "react/cjs/react.development";
 import { Link } from "react-router-dom";
 
-// import { USER_URL, CART_URL } from "../Constants";
+import { USER_URL, CART_URL } from "../../api/constants";
 
-import { getCartBerries, removeCartBerry } from "../../api/Cart";
+import { getCartBerries, removeCartBerry, orderBerries } from "../../api/Cart";
 import { getBerry } from "../../api/Berry";
 import { clearCart } from "../../api/Cart";
 
 export default function Cart(props) {
     const [cart, setCart] = React.useState(null);
     const { isAuthenticated } = props;
+    const [error, setError] = React.useState(null);
 
     // Show modal flag
     const [modal, setModal] = React.useState(false);
     const toggle = () => setModal(!modal);
 
-    // async function getCurrentUser() {
-    //     const res = await axios.get(USER_URL, {
-    //         withCredentials: true
-    //     })
-    //         .catch(err => {
-    //             // Network error
-    //             console.error("Request error: ", err);
-    //             return null;
-    //         });
+    async function getCurrentUser() {
+        const res = await axios.get(USER_URL, {
+            withCredentials: true
+        })
+            .catch(err => {
+                // Network error
+                console.error("Request error: ", err);
+                return null;
+            });
 
-    //     if (res.ok) {
-    //         return res.data;
-    //     }
-    //     return null;
-    // }
+        if (res.ok) {
+            return res.data;
+        }
+        return null;
+    }
 
     // async function fetchCart() {
     //     const user = await getCurrentUser();
@@ -58,7 +59,7 @@ export default function Cart(props) {
     }
 
     useEffect(() => {
-        // fetchCart();
+        fetchCart();
     }, [setCart]);
 
     const renderCart = () => {
@@ -95,8 +96,24 @@ export default function Cart(props) {
         }
     }
 
+    const handleOrder = async () => {
+        try {
+            await orderBerries();
+            setCart(null);
+        } catch (err) {
+            // display error to the user if something went wrong
+            setError(err);
+            setTimeout(() => {
+                setError(null);
+            }, 10);
+        }
+    }
+
     return (
         <Container>
+            {
+                error && <Alert>{error.message}</Alert>
+            }
             <h1>Shopping cart</h1>
             <Button color="danger" onClick={toggle}>Clear the cart</Button>
             {renderCart()}
@@ -106,6 +123,9 @@ export default function Cart(props) {
                     :
                     <p>Sorry you are not authenticated, go to the <Link to="/login">login</Link> page</p>
             }
+
+            <Button color="success" onClick={handleOrder}>Order</Button>
+
             <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>Are you sure you want clear the whole cart?</ModalHeader>
                 <ModalBody className="d-flex justify-content-between">

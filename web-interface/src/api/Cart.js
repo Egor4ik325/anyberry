@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 import { CART_URL } from "./constants";
+import endpoints from "./endpoints";
 
 
 export const getCartBerries = async () => {
@@ -60,5 +61,20 @@ export const clearCart = async () => {
     } catch (errors) {
         console.error("Clear cart error: ", errors);
         return null;
+    }
+}
+
+export const orderBerries = async () => {
+    try {
+        const csrftoken = Cookies.get('csrftoken');
+        await axios.post(endpoints.cart.order, null, {
+            withCredentials: true,
+            headers: {
+                "X-CSRFToken": csrftoken,
+            }
+        });
+    } catch (error) {
+        // Should not be any API errors
+        throw error;
     }
 }

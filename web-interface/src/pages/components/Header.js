@@ -32,6 +32,9 @@ function Header(props) {
                             <NavItem>
                                 <Link className="nav-link text-light" to="/cart">Cart</Link>
                             </NavItem>
+                            <NavItem>
+                                <Link className="nav-link text-light" to="/orders">Orders</Link>
+                            </NavItem>
                         </>
                     }
                 </Nav>
