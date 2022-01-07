@@ -1,25 +1,22 @@
 import { useState, useEffect } from "react";
-import { Container, Table } from "reactstrap";
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { Container, Table, Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from "reactstrap";
+import { faBorderNone, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 // import { client}
-import client from "../api";
+import client, { StatusEnum } from "../api";
 
 export default function Orders() {
     const [orders, setOrders] = useState(null);
+    const [open, setOpen] = useState(false);
+    // const []
 
     useEffect(() => {
         const fetchOrders = async () => {
             try {
                 const orderObjects = await client.orders.list()
                 console.log("Order objects: ", orderObjects);
-                // Annotate each order with the associated bill
-                setOrders(orderObjects.map(async order => {
-                    const bill = await client.orders.bill(order.id);
-                    order.bill = bill;
-                    return order;
-                }));
+                setOrders(orderObjects);
             } catch (error) {
                 // should not be any error
                 throw error;
@@ -28,19 +25,8 @@ export default function Orders() {
         fetchOrders();
     }, [])
 
-    const renderOrders = () => {
-        return orders && orders.map(order => (
-            <tr key={order.id}>
-                <td>{order.id}</td>
-                <td>{order.berries  ? order.berries.length : "No berries"}</td>
-                <td>{order.bill ? order.bill.amount : "No bill"}</td>
-                <td>?</td>
-                <td>?</td>
-                <td>?</td>
-                <td>?</td>
-                <th><FontAwesomeIcon icon={faEllipsisV} /></th>
-            </tr>
-        ));
+    const handleMouseOut = (e) => {
+        // TODO
     }
 
     return (
@@ -60,11 +46,13 @@ export default function Orders() {
                         <th>Expire Time</th>
 
                         <th>Create Time</th>
-                        <th><FontAwesomeIcon icon={faEllipsisV} color="reds-900" /></th>
+                        <th>
+                            <FontAwesomeIcon icon={faEllipsisV} color="reds-900" />
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr key={1}>
                         <td>1</td>
                         <td>7</td>
                         <td>$100</td>
@@ -72,13 +60,52 @@ export default function Orders() {
                         <td>Unpaid</td>
                         <td>Today</td>
                         <td>Tomorrow</td>
-                        <th><FontAwesomeIcon icon={faEllipsisV} /></th>
+                        <th>
+                            <Dropdown isOpen={open} onMouseOver={() => setOpen(true)}>
+                                {/* Toggler */}
+                                <DropdownToggle>
+                                    <FontAwesomeIcon icon={faEllipsisV} />
+                                </DropdownToggle>
+                                <DropdownMenu right onMouseOver={() => setOpen(true)}>
+                                    <DropdownItem>
+                                        Hello
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
+                        </th>
                     </tr>
                     {
-                        renderOrders()
+                        orders && orders.map(order => <Order {...order} /> )
                     }
                 </tbody>
             </Table>
         </Container>
+    );
+}
+
+function Order({ id, berries, bill }) {
+    const Status = ({ status }) => {
+        console.log("Status: ", status);
+        if (status === StatusEnum.paid) {
+            return "Paid";
+        }
+        if (status === StatusEnum.waiting) {
+            return "Waiting";
+        }
+
+        return "Other";
+    }
+
+    return (
+        <tr key={id}>
+            <td>{id}</td>
+            <td>{berries  ? berries.length : "No"}</td>
+            <td>{bill ? `${bill.currency}${bill.amount}` : "No"}</td>
+            <td>{bill ? <a href="bill.payUrl">QIWI</a> : "No"}</td>
+            <td>{bill ? <Status status={bill.status} /> : "No"}</td>
+            <td>{bill ? bill.expireTime.toDateString() : "No"}</td>
+            <td>{bill ? bill.createTime.toDateString() : "No"}</td>
+            <th><FontAwesomeIcon icon={faEllipsisV} /></th>
+        </tr>
     );
 }

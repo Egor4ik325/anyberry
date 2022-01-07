@@ -13,6 +13,7 @@ class Resource {
 // Orders resource
 class Orders extends Resource {
 
+    // Return list of all order with associated bills
     async list() {
         try {
             const response = await axios.get(endpoints.orders.list, {
@@ -20,7 +21,10 @@ class Orders extends Resource {
             });
             const orders = response.data;
             console.log("Order: ", orders);
-            return orders.map(order => new Order(order));
+            return await Promise.all(orders.map(async order => {
+                const bill = await this.bill(order.id);
+                return new Order({ ...order, bill: bill });
+            }));
         } catch (error) {
             // Should not be any API-related errors (based on user input)
             throw error;
@@ -51,11 +55,11 @@ class Orders extends Resource {
 
 // Order resource object
 class Order {
-    constructor({ id = null, user = null, berries = null}) {
+    constructor({ id = null, user = null, berries = null, bill = null}) {
         this.id = id;
         this.user = user;
         this.berries = berries || [];
-        this.bill = null;
+        this.bill = bill;
     }
 }
 
@@ -65,7 +69,13 @@ class Bill {
         this.currency = currency;
         this.payUrl = pay_url;
         this.status = status;
-        this.createTime = create_time;
-        this.expireTime = expire_time;
+        this.createTime = new Date(create_time);
+        this.expireTime = new Date(expire_time);
     }
+}
+
+// Convenient interface for checking for status
+export const StatusEnum = {
+    paid: "PAID",
+    waiting: "WAITING"
 }
