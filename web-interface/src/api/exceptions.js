@@ -45,3 +45,19 @@ export class RegistrationBadRequestError extends RegistrationError {
         this.nonFieldErrors = non_field_errors;
     }
 }
+
+export class RejectTaskFailureError extends APIError {
+    constructor() {
+        super();
+        this.name = "RejectTaskFailureError";
+        this.message = "Order bill rejection failed.";
+    }
+}
+
+export class RejectTaskNotSucceeded extends APIError {
+    constructor() {
+        super();
+        this.name = "RejectTaskNotSucceeded";
+        this.message = "Reject tasks status is not successful after 5 checks (25 seconds).";
+    }
+}

@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import { Container, Table, Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from "reactstrap";
-import { faBorderNone, faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { Container, Table, Dropdown, DropdownMenu, DropdownItem, DropdownToggle, Alert } from "reactstrap";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 // import { client}
 import client, { StatusEnum } from "../api";
+import { APIError } from "../api/exceptions";
 
 export default function Orders() {
     const [orders, setOrders] = useState(null);
-    const [open, setOpen] = useState(false);
-    // const []
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -23,17 +23,32 @@ export default function Orders() {
             }
         }
         fetchOrders();
-    }, [])
+    }, []) // fetch on startup
 
-    const handleMouseOut = (e) => {
-        // TODO
+    // Remove order from the list
+    const handleReject = (id) => {
+        setOrders(orders.filter(item => item.id !== id));
+    }
+
+    const handleError = (error) => {
+        setError(error);
     }
 
     return (
         <Container>
             <h2>Orders</h2>
             <p>6 berry orders</p>
-            <Table color="red" >
+            
+            {
+                // Display error message
+                error &&
+                <Alert color="danger" className="alert-dismissible">
+                    {error.message}
+                    <button className="btn btn-close" onClick={() => setError(null)} />
+                </Alert>
+            }
+
+            <Table>
                 <thead>
                     <tr>
                         <th>#</th>
@@ -47,7 +62,9 @@ export default function Orders() {
 
                         <th>Create Time</th>
                         <th>
-                            <FontAwesomeIcon icon={faEllipsisV} color="reds-900" />
+                            <div className="p-2">
+                                <FontAwesomeIcon icon={faEllipsisV} />
+                            </div>
                         </th>
                     </tr>
                 </thead>
@@ -61,21 +78,11 @@ export default function Orders() {
                         <td>Today</td>
                         <td>Tomorrow</td>
                         <th>
-                            <Dropdown isOpen={open} onMouseOver={() => setOpen(true)}>
-                                {/* Toggler */}
-                                <DropdownToggle>
-                                    <FontAwesomeIcon icon={faEllipsisV} />
-                                </DropdownToggle>
-                                <DropdownMenu right onMouseOver={() => setOpen(true)}>
-                                    <DropdownItem>
-                                        Hello
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </Dropdown>
+                            x
                         </th>
                     </tr>
                     {
-                        orders && orders.map(order => <Order {...order} /> )
+                        orders && orders.map(order => <Order {...order} onReject={handleReject} onError={handleError} /> )
                     }
                 </tbody>
             </Table>
@@ -83,9 +90,9 @@ export default function Orders() {
     );
 }
 
-function Order({ id, berries, bill }) {
+function Order({ id, berries, bill, onReject, onError }) {
+
     const Status = ({ status }) => {
-        console.log("Status: ", status);
         if (status === StatusEnum.paid) {
             return "Paid";
         }
@@ -96,16 +103,51 @@ function Order({ id, berries, bill }) {
         return "Other";
     }
 
+    const handleReject = async () => {
+        try {
+            const response = await client.orders.reject(id);
+
+            // Remove order from the list
+            onReject(id);
+        } catch (error) {
+            if (error instanceof APIError) {
+                // Display an error message
+                onError(error);
+            }
+            
+            throw error;
+        }
+    }
+
+    const EllipsisDropdown = () => {
+        const [open, setOpen] = useState(false);
+        return (
+            <Dropdown isOpen={open} toggle={() => { }} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+                <DropdownToggle tag={"div"} className="p-2">
+                    <FontAwesomeIcon icon={faEllipsisV} />
+                </DropdownToggle>
+
+                <DropdownMenu right onMouseEnter={() => setOpen(true)} onMouseLeave={() => !open && setOpen(false)}>
+                    <DropdownItem onClick={handleReject}>
+                        Reject
+                    </DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
+        );
+    }
+
     return (
         <tr key={id}>
             <td>{id}</td>
             <td>{berries  ? berries.length : "No"}</td>
             <td>{bill ? `${bill.currency}${bill.amount}` : "No"}</td>
-            <td>{bill ? <a href="bill.payUrl">QIWI</a> : "No"}</td>
+            <td>{bill ? <a href={bill.payUrl} target="_blank" rel="noreferrer">QIWI</a> : "No"}</td>
             <td>{bill ? <Status status={bill.status} /> : "No"}</td>
             <td>{bill ? bill.expireTime.toDateString() : "No"}</td>
             <td>{bill ? bill.createTime.toDateString() : "No"}</td>
-            <th><FontAwesomeIcon icon={faEllipsisV} /></th>
+            <th>
+                <EllipsisDropdown />
+            </th>
         </tr>
     );
 }

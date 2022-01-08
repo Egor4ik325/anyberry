@@ -31,6 +31,10 @@ class OrdersViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [permissions.IsAuthenticated, OrderPermission]
     authentication_classes = [TokenAuthentication, SessionAuthentication]
 
+    def get_queryset(self):
+        """Filter orders by request.user."""
+        return super().get_queryset().filter(user=self.request.user)
+
     @action(methods=["GET"], detail=True, url_path="bill", url_name="bill")
     @method_decorator(cache_page(60))
     def get_bill(self, request, pk) -> Response:

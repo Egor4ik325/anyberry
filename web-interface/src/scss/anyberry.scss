@@ -1,6 +1,4 @@
-// Import 
-
-// Configuration
+// Configuration files (define custom or override)
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
@@ -10,7 +8,7 @@
 @import "anyberry/variables";
 @import "anyberry/utilities";
 
-// Bootstrap main styles
+// Bootstrap main styles (components depend on above configuration)
 @import "~bootstrap/scss/bootstrap";
 
 // Additional styles (components, variables, utilities

@@ -11,6 +11,9 @@ const endpoints = {
         detail: id => `${API_URL}orders/${id}/`,
         reject: id => `${API_URL}orders/${id}/reject/`, 
         bill: id => `${API_URL}orders/${id}/bill/`, 
-    }
+    },
+    tasks: {
+        detail: `${API_URL}tasks/`,
+    },
 }
 export default endpoints;

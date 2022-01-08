@@ -14,6 +14,7 @@ export default function Cart(props) {
     const [cart, setCart] = React.useState(null);
     const { isAuthenticated } = props;
     const [error, setError] = React.useState(null);
+    const [message, setMessage] = React.useState(null)
 
     // Show modal flag
     const [modal, setModal] = React.useState(false);
@@ -34,23 +35,6 @@ export default function Cart(props) {
         }
         return null;
     }
-
-    // async function fetchCart() {
-    //     const user = await getCurrentUser();
-    //     if (user) {
-    //         axios.get(`${CART_URL}/${user.id}/`, {
-    //             withCredentials: true
-    //         })
-    //             .then(res => {
-    //                 if (res.ok) {
-    //                     setCart(JSON.stringify(res.data));
-    //                 }
-    //             })
-    //             .catch(err => {
-    //                 console.error(err);
-    //             });
-    //     }
-    // }
 
     const fetchCart = async _ => {
         const berries = await getCartBerries();
@@ -100,6 +84,8 @@ export default function Cart(props) {
         try {
             await orderBerries();
             setCart(null);
+            // Display success message
+            setMessage("Order successfully created!");
         } catch (err) {
             // display error to the user if something went wrong
             setError(err);
@@ -113,6 +99,9 @@ export default function Cart(props) {
         <Container>
             {
                 error && <Alert>{error.message}</Alert>
+            }
+            {
+                message && <Alert color="success">{message}</Alert>
             }
             <h1>Shopping cart</h1>
             <Button color="danger" onClick={toggle}>Clear the cart</Button>
