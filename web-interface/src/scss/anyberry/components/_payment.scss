@@ -1,0 +1,19 @@
+.payment-status {
+    border-radius: 15px;
+    padding: 1px 8px 2px 5px;
+}
+
+.paid {
+    background-color: $teal-100;
+    color: $green-500;
+}
+
+.waiting {
+    background-color: $yellow-100;
+    color: $orange-700;
+}
+
+.expired {
+    background-color: $red-100;
+    color: $red-600;
+}

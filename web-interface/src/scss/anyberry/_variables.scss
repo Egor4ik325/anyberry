@@ -3,3 +3,12 @@ $border-radius-round: 0.75rem;
 // Website colors + shaded versions
 $red: rgb(241, 26, 39);
 $green: rgb(133, 190, 18);
+
+// Customize table styles through variables
+
+$table-color: $black; // text color
+$table-bg: $white; // background color
+
+$table-hover-bg: $light;
+
+$table-group-separator-color: transparent;

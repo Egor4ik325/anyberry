@@ -1,0 +1,14 @@
+
+.table {
+    font-size: 14px;
+    // border: 1px solid #f8f9fa;
+    // border-radius: 3px;
+
+    > thead {
+        vertical-align: middle;
+
+        > th {
+            font-weight: .1;
+        }
+    }
+}

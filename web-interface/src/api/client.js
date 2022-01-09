@@ -145,7 +145,8 @@ class Bill {
 // Convenient interface for checking for status
 export const StatusEnum = {
     paid: "PAID",
-    waiting: "WAITING"
+    waiting: "WAITING",
+    expired: "EXPIRED"
 }
 
 class RejectResponse {
