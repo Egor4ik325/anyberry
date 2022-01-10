@@ -17,3 +17,21 @@
     background-color: $red-100;
     color: $red-600;
 }
+
+.pay {
+    background-color: $orange-400;
+    color: white;
+    padding: 5px 25px 5px 25px;
+    text-decoration: none; // for `<a>`
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px 1px $orange-200;
+}
+
+.pay:hover {
+    color: white;
+    background-color: $orange-500;
+}

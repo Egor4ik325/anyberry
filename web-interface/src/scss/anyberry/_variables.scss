@@ -11,4 +11,4 @@ $table-bg: $white; // background color
 
 $table-hover-bg: $light;
 
-$table-group-separator-color: transparent;
+$table-group-separator-color: $table-border-color;
