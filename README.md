@@ -88,17 +88,16 @@ Possible project features:
 ### Roadmap
 
 - [x] enhance model + interface/markup
-- [ ] auth/email/social + SPA
+- [x] auth/email/social + SPA
 - [x] shopping cart
 - [x] orders
 - [x] payments
-- [ ] favorite list
+- [ ] favorite list functionality
+- [ ] favorite list design
+- [ ] calculate price of berries in the order
+- [ ] secure password design
 - [ ] auth interface
-
-- [ ] localization
 - [ ] docker/production
-- [ ] enhance model + interface/markup
-- [ ] social media/comments
 
 #### Shopping cart
 

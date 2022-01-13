@@ -15,6 +15,14 @@ export class APIError extends Error {
     }
 }
 
+// Error object with all error information formatted into message attribute
+export class MessageFormattedAPIError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "MessageFormattedAPIError";
+    }
+}
+
 export class DetailError extends APIError {
     constructor({detail}) {
         super();

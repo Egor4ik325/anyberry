@@ -1,16 +1,19 @@
 import React from "react";
 import axios from "axios";
 import { useParams } from "react-router";
-import { Container, Row, Col, InputGroup, InputGroupText, Input } from "reactstrap";
+import { Container, Row, Col, InputGroup, InputGroupText, Input, Button } from "reactstrap";
 
 import { API_URL } from "../../api/constants";
 import { getCartBerries, addCartBerry, removeCartBerry } from "../../api/Cart";
+
+import client from "../../api";
 
 export default function Berry(props) {
     let { id } = useParams();
     id = parseInt(id);
     const [berry, setBerry] = React.useState(null);
     const [inCart, setInCart] = React.useState(false);
+    const [isFavorite, setIsFavorite] = React.useState(false);
 
     React.useEffect(() => {
         // Async data fetching inside sync effect
@@ -27,8 +30,15 @@ export default function Berry(props) {
                 setInCart(false);
             }
         }
+
+        const checkInFavorites = async () => {
+            const favorites = await client.favorite.list();
+            setIsFavorite(favorites.includes(id));
+        }
+
         fetchData();
         checkInCart();
+        checkInFavorites();
     }, [id, setBerry, setInCart]);
 
     if (!berry) {
@@ -56,6 +66,18 @@ export default function Berry(props) {
             }
         } catch (err) {
             console.error(err);
+        }
+    }
+
+    const handleFavorite = async () => {
+        try {
+            if (isFavorite) {
+                await client.favorite.remove({ id });
+            } else {
+                await client.favorite.add({ id });
+            }
+        } catch (error) {
+            // TODO, display error message
         }
     }
 
@@ -99,6 +121,15 @@ export default function Berry(props) {
                                 </InputGroupText>
                                 <Input type="button" value="Add to cart" disabled />
                             </InputGroup>
+                    }
+                    {
+                        props.isAuthenticated
+                        &&
+                        <Button color="warning" onClick={handleFavorite}>
+                            {
+                                isFavorite ? "Unfavorite" : "Favorite"
+                            }
+                        </Button>
                     }
                 </Col>
             </Row>

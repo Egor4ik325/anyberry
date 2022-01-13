@@ -1,11 +1,12 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import endpoints from "./endpoints";
-import { RejectTaskFailureError, RejectTaskNotSucceeded } from "./exceptions";
+import { APIError, RejectTaskFailureError, RejectTaskNotSucceeded } from "./exceptions";
 
 export default class APIClient {
     orders = new Orders();
     tasks = new Tasks();
+    favorite = new Favorite();
 
     constructor() {
         const newLocal = this;
@@ -14,8 +15,16 @@ export default class APIClient {
     }
 }
 
+// Provide some common to all resources methods (with default)
 class Resource {
-
+    async _request(config) {
+        // If safe method
+        if (config.method === "get") {
+            return axios({ ...config, withCredentials: true });
+        } else {
+            return axios({ ...config, withCredentials: true, xsrfCookieName: "csrftoken", xsrfHeaderName: "x-csrftoken" });
+        }
+    }
 }
 
 // Orders resource
@@ -104,6 +113,63 @@ class Orders extends Resource {
 
         } catch (error) {
             // should not be any API errors
+            throw error;
+        }
+    }
+}
+
+// Favorite berries list resource
+class Favorite extends Resource {
+    // Return the list of berry ids in the list
+    async list() {
+        try {
+            const response = await this._request({ url: endpoints.favorite.list });
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    // Add berry to the list, on failure return/raise error/exception
+    async add({ id }) {
+        try {
+            const response = await this._request({ method: "post", url: endpoints.favorite.list, data: { berry: id } });
+        } catch (error) {
+            // Berry may not exists, but user can not add arbitrary berries (if it is not deleted at the time of add)
+            if (error.response) {
+                // Return and error with the message formatted with data from error response
+                // to differentiate API-related error from generic language errors it will be custom exception class
+                const apiError = new APIError();
+                apiError.message = `Error: adding to favorite list`;
+
+                // if response include error detail => append to message
+                if (error.response.detail) {
+                    apiError.message += `: ${error.message.detail}`;
+                }
+
+                throw apiError;
+            }
+
+            throw error;
+        }
+    }
+
+    // Clear should be always successful
+    async clear() {
+        const response = await this._request({ method: "delete", url: endpoints.favorite.list });
+    }
+
+    // On success void return otherwise raise exception object
+    async remove({ id }) {
+        try {
+            this._request({ method: "delete", url: endpoints.favorite.detail(id) })
+        } catch (error) {
+            if (error.response) {
+                const apiError = new APIError();
+                apiError.message = `Error removing berry: ${error.response.detail || "no detail"}`;
+                throw apiError;
+            }
+
             throw error;
         }
     }

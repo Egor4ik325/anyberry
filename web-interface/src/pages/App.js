@@ -7,6 +7,7 @@ import Account from "./Account";
 import NotFound from "./NotFound";
 import EmailVerification from "./EmailVerification";
 import Orders from "./Orders";
+import Favorite from "./Favorite";
 
 // Custom components
 import {
@@ -48,6 +49,7 @@ function App() {
                 <Route path="/account" exact children={<Account />} />,
                 <Route path="/logout" exact children={<Logout />} />,
                 <Route path="/orders" exact children={<Orders />} />,
+                <Route path="/favorite" exact children={<Favorite />} />,
               ]
               :
               [

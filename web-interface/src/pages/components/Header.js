@@ -35,6 +35,7 @@ function Header(props) {
                             <NavItem>
                                 <Link className="nav-link text-light" to="/orders">Orders</Link>
                             </NavItem>
+                            <NavItem><Link className="nav-link text-light" to="/favorite">Favorite</Link></NavItem>
                         </>
                     }
                 </Nav>

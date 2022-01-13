@@ -15,5 +15,9 @@ const endpoints = {
     tasks: {
         detail: `${API_URL}tasks/`,
     },
+    favorite: {
+        list: `${API_URL}favorite/`,
+        detail: berry_id => `${API_URL}favorite/${berry_id}/`,
+    }
 }
 export default endpoints;
