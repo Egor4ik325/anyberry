@@ -76,6 +76,7 @@ export default function Berry(props) {
             } else {
                 await client.favorite.add({ id });
             }
+            setIsFavorite(!isFavorite);
         } catch (error) {
             // TODO, display error message
         }

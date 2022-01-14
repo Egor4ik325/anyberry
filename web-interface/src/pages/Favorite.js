@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import client from "../api";
 import { getBerry } from "../api/Berry";
+import { addCartBerry } from "../api/Cart";
 
 import Price from "./components/Price";
 import {
@@ -8,10 +9,12 @@ import {
     Card, CardBody,
     Row, Col,
     Button,
+    Alert,
 } from "reactstrap";
 
 const Favorite = (props) => {
     const [favorites, setFavorites] = useState(null);
+    const [message, setMessage] = useState({ msg: null, color: null });
 
     useEffect(() => {
         const fetchFavorites = async () => {
@@ -22,17 +25,36 @@ const Favorite = (props) => {
         fetchFavorites();
     }, [])
 
-    const handleUnfavorite = (id) => {
-        // TODO
+    const handleClear = async () => {
+        await client.favorite.clear();
+        setFavorites([]);
     }
 
-    const handleCart = (id) => {
-        // TODO
+    const handleUnfavorite = async (id) => {
+        await client.favorite.remove({ id });
+        setFavorites(favorites.filter(favorite => favorite.id !== id));
+        displayMessage({ msg: "Successfully unfavorite", color: "success" });
+    }
+
+    const handleCart = async (id) => {
+        addCartBerry(id);
+        displayMessage({ msg: "Successfully added to the cart", color: "success" });
+    }
+
+    const displayMessage = (msg) => {
+        setMessage(msg);
+        setTimeout(() => {
+            setMessage(null);
+        }, 5000);
     }
 
     return (
         <Container>
             <h2>Favorite List:</h2>
+            {
+                message?.msg && <Alert color={message.color}>{ message.msg }</Alert>
+            }
+            <Button onClick={handleClear}>Clear favorites</Button>
             {
                 // Render cards
                 favorites

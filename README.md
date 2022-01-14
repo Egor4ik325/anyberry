@@ -92,7 +92,7 @@ Possible project features:
 - [x] shopping cart
 - [x] orders
 - [x] payments
-- [ ] favorite list functionality
+- [x] favorite list functionality
 - [ ] favorite list design
 - [ ] calculate price of berries in the order
 - [ ] secure password design
