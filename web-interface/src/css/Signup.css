@@ -1,0 +1,37 @@
+.password-show {
+    position: absolute;
+    right: 10px;
+    bottom: 11px;
+    z-index: 9999;
+    cursor: pointer;
+    color: var(--bs-gray-500);
+}
+
+.password-strength {
+    color: var(--bs-gray-600);
+    font-size: 0.9rem;
+}
+
+.password-strength .progress {
+    height: 7px;
+    margin-bottom: 5px;
+}
+
+.password-strength .progress-bar {
+}
+
+.password-week .progress-bar {
+    background-color: var(--bs-red);
+}
+
+.password-so-so .progress-bar {
+    background-color: var(--bs-orange);
+}
+
+.password-almost .progress-bar {
+    background-color: var(--bs-blue);
+}
+
+.password-awesome .progress-bar {
+    background-color: #09b665;
+}

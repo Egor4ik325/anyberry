@@ -13,6 +13,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import "./scss/anyberry.scss"
 
 import "./css/favorite.css";
+import "./css/Signup.css";
 
 // Just renders main App component
 ReactDOM.render(
