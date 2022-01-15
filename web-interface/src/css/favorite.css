@@ -1,0 +1,41 @@
+/* Favorite pages component style classes */
+
+.favorite-bar {
+    display: flex;
+    background-color: var(--bs-gray-100);
+    padding: 15px 10px;
+    border-radius: 5px;
+}
+
+.favorite-clear {
+    background-color: var(--bs-red);
+    border: none;
+}
+
+.favorite-clear:hover {
+    background-color: var(--bs-pink);
+}
+
+.favorite-card {
+}
+
+.favorite-card:hover {
+    background-color: var(--bs-gray-100);
+}
+
+.favorite-card .col {
+    display: flex;
+    align-items: center;
+}
+
+.favorite-card .col:nth-of-type(3) {
+    justify-content: center;
+}
+
+.favorite-card .col:nth-of-type(4) {
+    justify-content: end;
+}
+
+.favorite-card img {
+    border-radius: 5px;
+}

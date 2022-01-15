@@ -12,6 +12,10 @@ import {
     Alert,
 } from "reactstrap";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
+import { faHeartBroken, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+
 const Favorite = (props) => {
     const [favorites, setFavorites] = useState(null);
     const [message, setMessage] = useState({ msg: null, color: null });
@@ -54,21 +58,29 @@ const Favorite = (props) => {
             {
                 message?.msg && <Alert color={message.color}>{ message.msg }</Alert>
             }
-            <Button onClick={handleClear}>Clear favorites</Button>
+            <div className="favorite-bar mb-2">
+                <Button onClick={handleClear} className="favorite-clear">
+                    <FontAwesomeIcon icon={faTrashAlt} className="me-2" />Clear favorites
+                </Button>
+            </div>
             {
                 // Render cards
                 favorites
                 &&
                 favorites.map(favorite => (
-                    <Card key={favorite.id}>
+                    <Card key={favorite.id} className="favorite-card">
                         <CardBody>
                             <Row>
-                                <Col className="ps-5"><img src={favorite.image} height={70} /></Col>
-                                <Col>{favorite.title}</Col>
+                                <Col className="ps-sm-5"><img src={favorite.image} height={70} /></Col>
+                                <Col className="fw-bolder">{favorite.title}</Col>
                                 <Col>{Price({amount: favorite.price, currency: favorite.price_currency})}</Col>
-                                <Col>
-                                    <Button onClick={() => handleUnfavorite(favorite.id)}>Unfavorite</Button>
-                                    <Button onClick={() => handleCart(favorite.id)}>Add to cart</Button>
+                                <Col className="d-flex flex-column flex-sm-row gap-1 justify-content-center">
+                                    <Button color="dark" onClick={() => handleUnfavorite(favorite.id)}>
+                                        <FontAwesomeIcon icon={faHeartBroken} />
+                                    </Button>
+                                    <Button color="dark" onClick={() => handleCart(favorite.id)}>
+                                        <FontAwesomeIcon icon={faShoppingCart} />
+                                    </Button>
                                 </Col>
                             </Row>
                         </CardBody>

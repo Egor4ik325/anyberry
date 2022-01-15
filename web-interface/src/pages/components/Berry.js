@@ -8,6 +8,11 @@ import { getCartBerries, addCartBerry, removeCartBerry } from "../../api/Cart";
 
 import client from "../../api";
 
+// Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
+
 export default function Berry(props) {
     let { id } = useParams();
     id = parseInt(id);
@@ -94,44 +99,48 @@ export default function Berry(props) {
                     <h3>{berry.title}</h3>
                     <p>{berry.description}</p>
                     <p className="fs-2 fw-bold">{berry.price} {berry.price_currency}</p>
-                    <p>Berries left: {berry.quantity}</p>
-                    <p>Berries weight: {berry.weight}kg</p>
+                    <p className="text-secondary">
+                        Berries left: {berry.quantity} <br />
+                        Berries weight: {berry.weight}kg
+                    </p>
 
-                    {
-                        props.isAuthenticated ?
-                            !inCart ?
+                    <div className="d-flex gap-1">
+                        {
+                            props.isAuthenticated ?
+                                !inCart ?
+                                    <InputGroup size="lg" style={{ width: 300 }}>
+                                        <InputGroupText>
+                                            <i className="bi bi-cart-plus"></i>
+                                        </InputGroupText>
+                                        <Input type="button" value="Add to cart"
+                                            onClick={addToCart} />
+                                    </InputGroup>
+                                    :
+                                    <InputGroup size="lg" style={{ width: 300 }}>
+                                        <InputGroupText>
+                                            <i className="bi bi-cart-dash"></i>
+                                        </InputGroupText>
+                                        <Input type="button" value="Remove from cart"
+                                            onClick={removeFromCart} />
+                                    </InputGroup>
+                                :
                                 <InputGroup size="lg" style={{ width: 300 }}>
                                     <InputGroupText>
                                         <i className="bi bi-cart-plus"></i>
                                     </InputGroupText>
-                                    <Input type="button" value="Add to cart"
-                                        onClick={addToCart} />
+                                    <Input type="button" value="Add to cart" disabled />
                                 </InputGroup>
-                                :
-                                <InputGroup size="lg" style={{ width: 300 }}>
-                                    <InputGroupText>
-                                        <i className="bi bi-cart-dash"></i>
-                                    </InputGroupText>
-                                    <Input type="button" value="Remove from cart"
-                                        onClick={removeFromCart} />
-                                </InputGroup>
-                            :
-                            <InputGroup size="lg" style={{ width: 300 }}>
-                                <InputGroupText>
-                                    <i className="bi bi-cart-plus"></i>
-                                </InputGroupText>
-                                <Input type="button" value="Add to cart" disabled />
-                            </InputGroup>
-                    }
-                    {
-                        props.isAuthenticated
-                        &&
-                        <Button color="warning" onClick={handleFavorite}>
-                            {
-                                isFavorite ? "Unfavorite" : "Favorite"
-                            }
-                        </Button>
-                    }
+                        }
+                        {
+                            props.isAuthenticated
+                            &&
+                            <Button color="warning" size="lg" onClick={handleFavorite}>
+                                {
+                                    isFavorite ? <FontAwesomeIcon icon={faHeartSolid} /> : <FontAwesomeIcon icon={faHeartRegular} />
+                                }
+                            </Button>
+                        }
+                    </div>
                 </Col>
             </Row>
         </Container>

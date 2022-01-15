@@ -93,10 +93,11 @@ Possible project features:
 - [x] orders
 - [x] payments
 - [x] favorite list functionality
-- [ ] favorite list design
+- [x] favorite list design
 - [ ] calculate price of berries in the order
 - [ ] secure password design
-- [ ] auth interface
+- [x] auth interface
+- [ ] berries preview
 - [ ] docker/production
 
 #### Shopping cart
