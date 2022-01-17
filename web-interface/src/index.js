@@ -14,6 +14,7 @@ import "./scss/anyberry.scss"
 
 import "./css/favorite.css";
 import "./css/Signup.css";
+import "./css/Landing.css";
 
 // Just renders main App component
 ReactDOM.render(

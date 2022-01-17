@@ -1,0 +1,9 @@
+@include media-breakpoint-down(lg) { 
+    .landing-p {
+        padding: 0 20px;
+    }
+
+    .landing-p-br {
+        display: none;
+    }
+}

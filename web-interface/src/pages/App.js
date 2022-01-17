@@ -8,6 +8,7 @@ import NotFound from "./NotFound";
 import EmailVerification from "./EmailVerification";
 import Orders from "./Orders";
 import Favorite from "./Favorite";
+import Landing from "./Landing";
 
 // Custom components
 import {
@@ -37,7 +38,8 @@ function App() {
       <Router>
         <Header isAuthenticated={isAuthenticated} />
         <Switch>
-          <Route path="/" exact component={() => <Home />} />
+          <Route path="/" exact children={<Landing /> } />
+          <Route path="/berries/" exact component={() => <Home />} />
           <Route path="/berries/:id" exact children={<Berry isAuthenticated={isAuthenticated} />} />
           <Route path="/about" exact component={() => <About />} />
           <Route path="/contact" exact component={() => <Contact />} />
