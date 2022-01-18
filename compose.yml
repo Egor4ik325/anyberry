@@ -2,6 +2,7 @@ version: "3.9"
 
 volumes:
   redis_data: null
+  # anyberry_nginx_config:
 
 networks:
   anyberry:
@@ -11,6 +12,7 @@ services:
   # Django web API
   django:
     build: ./web-api
+    image: anyberry_web_api
     # Run the API server
     command: python manage.py runserver 0.0.0.0:8000
     # Sync files via volume
@@ -36,6 +38,7 @@ services:
   celeryworker:
     # Build the image for Celery (same as for Django API)
     build: ./web-api
+    image: anyberry_celery
     # Start the celery worker (only difference from Django)
     command: celery --app=anyberry worker --loglevel=INFO
     # Share local:container files in the volume
@@ -44,3 +47,22 @@ services:
     env_file: ./web-api/anyberry/.env
     depends_on:
       - redis
+
+  nginx:
+   build: ./web-proxy
+   image: anyberry_proxy
+   container_name: anyberry_proxy
+   volumes:
+     - ./web-proxy/nginx.conf:/etc/nginx/nginx.conf:ro
+    # - anyberry_nginx_config:./nginx.conf:/etc/nginx/nginx.conf:ro
+   ports:
+     - 80:80
+
+
+  interface:
+   build: ./web-interface
+   image: anyberry_interface
+   container_name: anyberry_interface
+   command: npm start 0.0.0.0:3000
+   expose:
+     - 3000
