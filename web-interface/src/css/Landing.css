@@ -1,47 +1,79 @@
 .landing-hero-photo {
-    border-radius: 1rem;
+  border-radius: 1rem;
 }
 
 .landing-heading {
-    font-size: 2.2rem;
-    line-height: 3.5rem;
-    font-weight: bolder;
+  font-size: 3.2rem;
+  line-height: 3.5rem;
+  font-weight: bolder;
 }
 
 .landing-hero-paragraph {
-    color: var(--bs-gray-500);
+  color: var(--bs-gray-500);
 }
 
 .landing-contents {
-    background-size: 100% auto;
-    height: 500px;
+  background-size: 100% auto;
+  height: 500px;
 }
 
 .landing-contents p {
-    color: var(--bs-gray-200)
+  color: var(--bs-gray-200);
 }
 
 @media screen and (max-width: 750px) {
-    .landing-contents {
-        background-size: auto 100%;
-    }
+  .landing-contents {
+    background-size: auto 100%;
+  }
 }
 
 .landing-paragraph {
-    font-size: 1.2rem;
-    color: var(--bs-gray-500)
+  font-size: 1.2rem;
+  color: var(--bs-gray-500);
 }
 
 .landing-features .card {
-    padding: 40px 20px;
-    height: 350px;
-    border-radius: 10px;
+  padding: 40px 20px;
+  /* height: 300px; */
+  /* min-height: 300px; */
+  max-height: 700px;
+  border-radius: 10px;
 }
 
 .landing-features-icon {
-    margin-bottom: 20px;
+  color: rgb(197, 2, 2);
+  margin-bottom: 25px;
 }
 
-.landing-features .card h3 {
-    margin-bottom: 30px;
+.landing-features .card h4 {
+  margin-bottom: 20px;
+}
+
+.card-paragraph {
+  font-weight: 300;
+  color: var(--bs-gray-500);
+}
+
+.landing-product-img {
+  border-radius: 15px;
+  padding: 5px;
+  /* Bootstrap fluid */
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  height: 250px;
+}
+
+.landing-product:hover img {
+  position: relative;
+  opacity: 0.5;
+}
+
+.landing-product-desc {
+  display: none;
+}
+
+.landing-product:hover .landing-product-desc {
+  display: block;
+  position: absolute;
 }
