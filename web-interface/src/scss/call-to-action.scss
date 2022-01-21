@@ -1,0 +1,17 @@
+@include media-breakpoint-up(lg) {
+  .landing-call-to-action {
+    margin: 0px 100px;
+  }
+}
+
+@include media-breakpoint-only(md) {
+  .landing-call-to-action {
+    margin: 0px 0px;
+  }
+}
+
+@include media-breakpoint-only(xs) {
+  .landing-call-to-action {
+    margin: 0px 0x;
+  }
+}

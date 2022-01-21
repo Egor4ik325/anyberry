@@ -179,11 +179,6 @@ const Products = () => (
       <Col xs={12} md={6} lg={4}>
         <Row className="landing-product">
           <img src={cranberry} className="landing-product-img" />
-          <div className="landing-product-desc">
-            <div>Cranberry</div>
-            Cranberries are a sour-tasting type of red berry that are rich in
-            vitamin C and are packed with fiber and antioxidants.
-          </div>
         </Row>
         <Row>
           <img
@@ -220,14 +215,27 @@ const Products = () => (
       </Col>
     </Row>
 
+    {/* <div className="landing-product-desc">
+      <div>Cranberry</div>
+      Cranberries are a sour-tasting type of red berry that are rich in vitamin
+      C and are packed with fiber and antioxidants.
+    </div>
     <div>Elderberry</div>
     <div>Mulberry</div>
     <div>Gooseberry</div>
-    <div>Lingonberry</div>
+    <div>Lingonberry</div> */}
   </div>
 );
 
-const CallToAction = () => <>Sign-up now.</>;
+const CallToAction = () => (
+  <div className="py-5">
+    <div className="landing-call-to-action mb-4">
+      <div className="get-started mb-3">Get started</div>
+      <h3 className="mb-5">Sign-up and start shopping right now</h3>
+      <Button className="anyberry-btn">Sign Up</Button>
+    </div>
+  </div>
+);
 
 // E-commerce berry shop landing page
 const Landing = () => {
@@ -244,6 +252,10 @@ const Landing = () => {
         <Features style={{ marginTop: "80px", marginBottom: "80px" }} />
         <hr />
         <Products />
+      </Container>
+      <div className="mt-5 mb-4 border-2 border-bottom"></div>
+      <Container>
+        <CallToAction />
       </Container>
     </>
   );

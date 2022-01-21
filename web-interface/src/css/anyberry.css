@@ -1,0 +1,11 @@
+.anyberry-btn {
+  background-color: black;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 20px;
+  font-size: x-large;
+}
+
+.anyberry-btn:hover {
+  background-color: var(--bs-gray-800);
+}

@@ -64,16 +64,21 @@
   height: 250px;
 }
 
-.landing-product:hover img {
-  position: relative;
-  opacity: 0.5;
+.landing-call-to-action {
+  background-image: url("../assets/img/photos/strawberry-pattern.jpg");
+  background-color: rgba(255, 255, 255, 0.2);
+  background-blend-mode: lighten;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 15px;
+  text-align: center;
+  padding: 50px 20px;
 }
 
-.landing-product-desc {
-  display: none;
+.landing-call-to-action .get-started {
+  text-transform: uppercase;
 }
 
-.landing-product:hover .landing-product-desc {
-  display: block;
-  position: absolute;
+.landing-call-to-action h3 {
+  font-size: 3rem;
 }
